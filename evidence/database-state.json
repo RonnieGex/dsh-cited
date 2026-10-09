@@ -13,12 +13,12 @@
     {
       "table": "document_index",
       "rows": 4,
-      "sha256": "7f42e477dc63bab5a237576d71acf3bb742afb6a941fcb388e2113c8f8a6b3b4"
+      "sha256": "a9e28a1d072457660910bd76b0e68ea9965911a92eb226feb3c2ba595a17a6cf"
     },
     {
       "table": "documents",
       "rows": 4,
-      "sha256": "99b602ebf541b664498f5cb0d3a072cfb5165d90096642475ff2f3f515f1fe47"
+      "sha256": "4630c6773dd354f35dd76966f83fe62e56334a28f31606b28c2e604b029e41dd"
     },
     {
       "table": "login_attempts",
@@ -110,12 +110,12 @@
     {
       "table": "document_index",
       "rows": 4,
-      "sha256": "7f42e477dc63bab5a237576d71acf3bb742afb6a941fcb388e2113c8f8a6b3b4"
+      "sha256": "a9e28a1d072457660910bd76b0e68ea9965911a92eb226feb3c2ba595a17a6cf"
     },
     {
       "table": "documents",
       "rows": 4,
-      "sha256": "99b602ebf541b664498f5cb0d3a072cfb5165d90096642475ff2f3f515f1fe47"
+      "sha256": "4630c6773dd354f35dd76966f83fe62e56334a28f31606b28c2e604b029e41dd"
     },
     {
       "table": "login_attempts",

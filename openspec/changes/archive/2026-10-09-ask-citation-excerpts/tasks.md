@@ -13,4 +13,6 @@ Authority: Fable's approved round-three assignment. Author: independent contract
 - [x] 8. `/verify`: run OpenSpec strict validation and reconcile requirements against executed evidence in `reports/2026-10-09-step-8-verify.md`.
 - [x] 9. `/adversarial-review`: an independent reviewer records evidence, Blocker/Major/Minor findings and PASS/PASS WITH GAPS/FAIL in `reports/2026-10-09-step-9-adversarial-review.md`; corrections receive independent review.
 - [x] 10. `/archive`: archive the change and reports only after Blockers and Majors are resolved.
-- [ ] 11. `/commit`: run tests, CI-required checks and gitleaks before committing; update PR #1 without merging. Report actual checks and unresolved issues, never unverified completion.
+- [x] 11. `/commit`: run tests, CI-required checks and gitleaks before committing; update PR #1 without merging. Report actual checks and unresolved issues, never unverified completion.
+
+Commit evidence: `git commit -m "fix: include exact citation excerpts in ask text"` -> fda732d; `git push origin feature/readme-pro` succeeded; `gh pr checks 1 --repo RonnieGex/dsh-cited`: four checks passed on push/PR. Staged gitleaks found no secrets before commit.

@@ -24,6 +24,8 @@ After cloning, run `npx -y -p node@24 node scripts/link-agent-contracts.mjs` to 
 
 Keep source and packaged `lib/` synchronized. Update all three READMEs whenever public behavior changes. Keep compatibility claims dated and linked to saved evidence, distinguish documented clients from exercised clients, and keep secrets out of graphics. Preserve the OFL license with Outfit assets and identify the original brand asset provenance.
 
-## README round two
+## README evidence
 
-Use the localized banner and steps renderer and the natural headless evidence described in [readme-assets.md](readme-assets.md). `src/` and `lib/` are unchanged. Install output can include missing peer warnings because the running harness supplies its host peers; successful tool calls establish that the installed plugin loaded. The canonical Spanish answer uses `cited_ask`; the highlighted price line is separately traced to the saved natural search.
+The current runtime includes exact citation excerpts. Run the round-three capture wrapper documented in [readme-assets.md](readme-assets.md) only when a new model batch is authorized. Saved evidence is rendered offline into 18 localized graphics. `natural-summary.json` separates a supported price answer from a refusal that happens to contain citations. The current result is 2/3, with both Spanish questions supported and the English question refused. Canonical evidence has its own ask passage; downloads retain additional same-run search calls. The token section describes conversation persistence only with sessionId.
+
+Harness uses deepseek-official/deepseek-v4-flash; the isolated Cited server uses deepseek/deepseek-v4-flash. The recorded plugin hash identifies the local built checkout. Fable merges plugin PR #1 before Cited PR #18 so concrete main-branch evidence links resolve. No production deployment belongs to these commands.

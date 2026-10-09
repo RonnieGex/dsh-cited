@@ -7,11 +7,11 @@
 [![CI](https://github.com/RonnieGex/dsh-cited/actions/workflows/ci.yml/badge.svg)](https://github.com/RonnieGex/dsh-cited/actions/workflows/ci.yml)
 ![Status: early development](https://img.shields.io/badge/status-early%20development-DDF469?labelColor=171717)
 
+[English](README.md) · [Español](README.es.md) · [中文](README.zh.md)
+
 - Keep your documents in Cited while you work in your agent.
 - Check answers against numbered source passages.
 - Choose document search or a full cited answer.
-
-[English](README.md) · [Español](README.es.md) · [中文](README.zh.md)
 
 **Cited inside DeepSeek Harness.** Two native tools let your agent search a [Cited](https://github.com/RonnieGex/cited) installation and answer from its documents with numbered citations. The plugin connects to your configured installation over `POST /api/mcp`.
 
@@ -25,7 +25,7 @@
 
 1. Run `dsh plugin add github:RonnieGex/dsh-cited`.
 2. Open the plugin configuration and set **url** and **token**.
-3. Ask your agent. `cited_search` returns numbered passages; the agent uses them to answer with `[1]`.
+3. Ask your agent. It calls `cited_search` or `cited_ask` and answers with `[1]`.
 
 Cited hosts documents and retrieval. DeepSeek Harness hosts the agent and this plugin. No MCP client row in `cordis.yml` is needed for these native tools.
 
@@ -37,15 +37,27 @@ Cited hosts documents and retrieval. DeepSeek Harness hosts the agent and this p
 
 ## A real answer
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-dark.png"><img src="docs/images/real-answer-light.png" alt="Natural question in Spanish: DeepSeek selects cited_ask and answers that a bicycle tune-up costs 380 pesos [1], citing cafe-la-horquilla.md, Precios. The highlighted source passage comes from the separate recorded search." width="1280"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-dark.png"><img src="docs/images/real-answer-light.png" alt="Natural Spanish question: DeepSeek calls cited_ask; Cited returns 380 pesos [1] and its own source passage from cafe-la-horquilla.md, Precios, position 2." width="1280"></picture>
 
-On **2026-10-09**, a new temporary `DSH_HOME` installed the plugin from GitHub. DeepSeek searched Cited's public sample documents and answered:
+On **2026-10-09**, a fresh temporary `DSH_HOME` installed the locally built plugin. Given a natural question, DeepSeek called `cited_ask`; Cited answered from its public sample documents, and DeepSeek replied:
 
-> Según los documentos, **afinar una bicicleta en Café La Horquilla cuesta 380 pesos** [1].
+> La afinación de bicicleta en Café La Horquilla cuesta **380 pesos** [1].
 >
-> Fuente: `cafe-la-horquilla.md`, sección *Precios* [1].
+> Está en la lista de precios del documento `cafe-la-horquilla.md` (sección Precios), junto con:
+>
+> - Espresso: 35 pesos
+> - Café de olla: 45 pesos
+> - Pan dulce del día: 30 pesos
+> - **Afinación de bicicleta: 380 pesos**
+> - Cambio de cámara: 120 pesos
+>
+> Una nota relacionada, por si te sirve: el negocio aclara que no da precios por mensaje para trabajos que requieren revisar la bicicleta, así que ese precio aplica como tarifa publicada del servicio de afinación.
 
-The image typesets the saved question, actual tool call, passage and answer. It is not a desktop screenshot. The natural question names no tool. DeepSeek chose `cited_ask` and answered in Spanish. The highlighted passage comes from a separate recorded natural `cited_search` run, linked in the record. [Plain text](docs/evidence/headless-answer.txt) · [Run record](docs/evidence/headless-answer.json). Retrieval used keyword search without an embedding provider; the agent used a real DeepSeek model. The separate search left all 19 sample tables unchanged; `cited_ask` updated model-call state.
+The image shows the selected `cited_ask` exchange and the complete final answer in its original Spanish. The same run also called `cited_search`; the [raw transcript](docs/evidence/headless-answer.txt) and [run record](docs/evidence/headless-answer.json) retain every call. The highlighted passage was returned by `cited_ask` in this run. Terminal Markdown stays raw; citation marks are highlighted.
+
+**2 of 3 natural questions were answered with a supported price citation** using keyword search without embeddings; English questions over Spanish documents can miss the passage, as the English question did here. [All three outcomes](docs/evidence/natural-summary.json).
+
+The Harness agent used `deepseek-official / deepseek-v4-flash`; Cited’s answer pipeline used `deepseek / deepseek-v4-flash`, recorded from the isolated server’s startup configuration. The canonical run changed only `model_calls`; all other sample table hashes, including empty conversations, stayed unchanged.
 
 ## Install
 
@@ -55,7 +67,7 @@ Run the verified installation command:
 dsh plugin add github:RonnieGex/dsh-cited
 ```
 
-In the app, **Plugins → Add plugin** is the same plugin manager, from the app. Paste `https://github.com/RonnieGex/dsh-cited`.
+In the desktop app, use **Plugins → Add plugin** and paste `https://github.com/RonnieGex/dsh-cited` (not click-tested; see Compatibility).
 
 The repository ships `lib/`: installation needs no compilation or `allowBuilds` permission.
 
@@ -89,7 +101,7 @@ Without a server token, Cited’s MCP endpoint is off. Generate one with `openss
 - Sent as `Authorization: Bearer` to the configured endpoint; not added to tool arguments or normal output.
 - Marked secret in the configuration schema for the harness's field handling. This does not establish encryption at rest. Protect the configuration; use HTTPS for remote servers.
 - Redacted from transport failures, together with URL credentials. Rejected authorization, disabled endpoint, timeout and unreachable host become short tool errors.
-- The plugin owns no document database. Cited stores documents and conversations created through `cited_ask`.
+- The plugin owns no document database. Cited stores documents and conversations created through `cited_ask` with a `sessionId`.
 
 ## Troubleshooting
 
@@ -112,11 +124,13 @@ A range is not proof of every version. MCP clients below connect directly to **C
 
 | Client | Date | Evidence and limit |
 |---|---|---|
-| DeepSeek Harness 0.1.6-alpha.2, source CLI | 2026-10-09 | New GitHub install and real DeepSeek `cited_ask` answer in isolated headless state. [Record](docs/evidence/headless-answer.json); [gate](evidence/gate.txt). |
+| DeepSeek Harness 0.1.6-alpha.2, source CLI | 2026-10-09 | Local built-plugin install and real DeepSeek `cited_ask` answer in isolated headless state; earlier GitHub installation is recorded in the provenance. [Record](docs/evidence/headless-answer.json); [gate](evidence/gate.txt). |
 | DeepSeek Harness 0.2.0-rc.2, bundled CLI | 2026-10-09 | Installed and answered in a local run on 2026-10-09; raw log not kept in this repository. [Provenance](docs/evidence/compatibility.md). |
 | Claude Code → Cited MCP | 2026-10-09 | Prior verification: connected and listed both tools. No model tool call claimed. [Provenance](docs/evidence/compatibility.md). |
 | Codex → Cited MCP | 2026-10-09 | Prior verification: connected and listed both tools. No model tool call claimed. [Provenance](docs/evidence/compatibility.md). |
 | Cursor → Cited MCP | 2026-10-09 | Documented only; not tested. [Provenance](docs/evidence/compatibility.md). |
+
+Not verified: reliable cross-language retrieval without embeddings. In the [English run](docs/evidence/natural-2026-10-09T17-01-01-501Z/attempt-1.json), Cited refused and the agent falsely claimed the price was absent and a tune-up necessarily required inspection. In the [earlier English run](docs/evidence/natural-2026-10-09T16-16-13-632Z/attempt-1.json), it also falsely generalized that the documents did not cover bicycle services. These are agent errors, not evidence that the corpus lacks the price.
 
 Not verified: desktop installation clicks, other operating systems and remote HTTPS deployments.
 

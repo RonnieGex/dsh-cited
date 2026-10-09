@@ -7,11 +7,11 @@
 [![CI](https://github.com/RonnieGex/dsh-cited/actions/workflows/ci.yml/badge.svg)](https://github.com/RonnieGex/dsh-cited/actions/workflows/ci.yml)
 ![Estado: desarrollo inicial](https://img.shields.io/badge/estado-desarrollo%20inicial-DDF469?labelColor=171717)
 
+[English](README.md) · [Español](README.es.md) · [中文](README.zh.md)
+
 - Conserva tus documentos en Cited mientras trabajas con tu agente.
 - Comprueba las respuestas con pasajes y fuentes numeradas.
 - Elige entre buscar documentos y recibir una respuesta completa con citas.
-
-[English](README.md) · [Español](README.es.md) · [中文](README.zh.md)
 
 **Cited dentro de DeepSeek Harness.** Dos herramientas nativas permiten a tu agente buscar en una instalación de [Cited](https://github.com/RonnieGex/cited) y responder desde sus documentos con citas numeradas. El plugin se conecta a la instalación que configures mediante `POST /api/mcp`.
 
@@ -25,7 +25,7 @@
 
 1. Ejecuta `dsh plugin add github:RonnieGex/dsh-cited`.
 2. Abre la configuración del plugin y llena **url** y **token**.
-3. Pregunta a tu agente. `cited_search` devuelve pasajes numerados; el agente los usa para responder con `[1]`.
+3. Pregunta a tu agente. Llama a `cited_search` o `cited_ask` y responde con `[1]`.
 
 Cited aloja los documentos y la búsqueda. DeepSeek Harness aloja al agente y este plugin. Estas herramientas nativas no necesitan una fila de cliente MCP en `cordis.yml`.
 
@@ -37,15 +37,27 @@ Cited aloja los documentos y la búsqueda. DeepSeek Harness aloja al agente y es
 
 ## Una respuesta real
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-dark.png"><img src="docs/images/real-answer-light.png" alt="Pregunta natural en español: DeepSeek elige cited_ask y responde que afinar una bicicleta cuesta 380 pesos [1], citando cafe-la-horquilla.md, Precios. El pasaje resaltado proviene de la búsqueda separada grabada." width="1280"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-es-dark.png"><img src="docs/images/real-answer-es-light.png" alt="Pregunta natural en español: DeepSeek llama cited_ask; Cited devuelve 380 pesos [1] y su propio pasaje de cafe-la-horquilla.md, Precios, posición 2." width="1280"></picture>
 
-El **2026-10-09**, un nuevo `DSH_HOME` temporal instaló el plugin desde GitHub. DeepSeek buscó en los documentos públicos de muestra de Cited y respondió:
+El **2026-10-09**, un `DSH_HOME` temporal instaló el plugin compilado localmente. Ante una pregunta natural, DeepSeek llamó a `cited_ask`; Cited respondió desde sus documentos públicos de muestra y DeepSeek contestó:
 
-> Según los documentos, **afinar una bicicleta en Café La Horquilla cuesta 380 pesos** [1].
+> La afinación de bicicleta en Café La Horquilla cuesta **380 pesos** [1].
 >
-> Fuente: `cafe-la-horquilla.md`, sección *Precios* [1].
+> Está en la lista de precios del documento `cafe-la-horquilla.md` (sección Precios), junto con:
+>
+> - Espresso: 35 pesos
+> - Café de olla: 45 pesos
+> - Pan dulce del día: 30 pesos
+> - **Afinación de bicicleta: 380 pesos**
+> - Cambio de cámara: 120 pesos
+>
+> Una nota relacionada, por si te sirve: el negocio aclara que no da precios por mensaje para trabajos que requieren revisar la bicicleta, así que ese precio aplica como tarifa publicada del servicio de afinación.
 
-La imagen presenta la pregunta guardada, la llamada real, el pasaje y la respuesta. No es una captura de escritorio. La pregunta natural no nombra herramientas. DeepSeek eligió `cited_ask` y respondió en español. El pasaje resaltado viene de otra corrida natural de `cited_search`, enlazada en el registro. [Texto completo](docs/evidence/headless-answer.txt) · [Registro de ejecución](docs/evidence/headless-answer.json). La búsqueda usó palabras clave sin proveedor de embeddings; el agente usó un modelo real de DeepSeek. La búsqueda separada dejó las 19 tablas sin cambios; `cited_ask` actualizó el estado de llamadas al modelo.
+La imagen muestra el intercambio seleccionado de `cited_ask` y la respuesta final completa en su español original. La misma corrida también llamó a `cited_search`; la [transcripción cruda](docs/evidence/headless-answer.txt) y el [registro](docs/evidence/headless-answer.json) conservan todas las llamadas. El pasaje resaltado lo devolvió `cited_ask` en esta corrida. El Markdown de la terminal queda crudo; las marcas de cita se resaltan.
+
+**2 de 3 preguntas naturales recibieron el precio con una cita sustentada**, con búsqueda por palabras clave sin embeddings; una pregunta en inglés sobre documentos en español puede no encontrar el pasaje, como ocurrió aquí. [Los tres resultados](docs/evidence/natural-summary.json).
+
+El agente de Harness usó `deepseek-official / deepseek-v4-flash`; el proceso de respuestas de Cited usó `deepseek / deepseek-v4-flash`, registrado desde la configuración de arranque del servidor aislado. La corrida canónica cambió solo `model_calls`; los hashes de las demás tablas, incluidas las conversaciones vacías, quedaron iguales.
 
 ## Instalar
 
@@ -55,7 +67,7 @@ Ejecuta el comando de instalación verificado:
 dsh plugin add github:RonnieGex/dsh-cited
 ```
 
-En la app, **Plugins → Add plugin** abre el mismo administrador de plugins. Pega `https://github.com/RonnieGex/dsh-cited`.
+En la app de escritorio, usa **Plugins → Add plugin** y pega `https://github.com/RonnieGex/dsh-cited` (sin probar con clics; consulta Compatibilidad).
 
 El repositorio incluye `lib/`: instalar no requiere compilar ni dar permiso `allowBuilds`.
 
@@ -89,7 +101,7 @@ Sin token en el servidor, el endpoint MCP de Cited está apagado. Genera uno con
 - Se envía como `Authorization: Bearer` al endpoint configurado; no se agrega a los argumentos de herramientas ni a su salida normal.
 - El esquema lo marca como secreto para el manejo de campos del harness. Esto no demuestra cifrado en reposo. Protege la configuración y usa HTTPS en servidores remotos.
 - Se oculta en los errores de transporte, junto con las credenciales en URL. Autorización rechazada, endpoint apagado, tiempo agotado y host inaccesible se convierten en errores breves de herramienta.
-- El plugin no tiene base propia de documentos. Cited guarda los documentos y las conversaciones creadas mediante `cited_ask`.
+- El plugin no tiene base propia de documentos. Cited guarda los documentos y las conversaciones creadas mediante `cited_ask` con un `sessionId`.
 
 ## Solución de problemas
 
@@ -112,11 +124,13 @@ Un rango no demuestra cada versión. Los clientes MCP siguientes se conectan dir
 
 | Cliente | Fecha | Evidencia y límite |
 |---|---|---|
-| DeepSeek Harness 0.1.6-alpha.2, CLI desde código fuente | 2026-10-09 | Nueva instalación desde GitHub y respuesta real de DeepSeek con `cited_ask` en estado headless aislado. [Registro](docs/evidence/headless-answer.json); [gate](evidence/gate.txt). |
+| DeepSeek Harness 0.1.6-alpha.2, CLI desde código fuente | 2026-10-09 | Instalación del plugin compilado localmente y respuesta real de DeepSeek con `cited_ask` en estado headless aislado; la instalación de GitHub tiene evidencia anterior. [Registro](docs/evidence/headless-answer.json); [gate](evidence/gate.txt). |
 | DeepSeek Harness 0.2.0-rc.2, CLI incluido | 2026-10-09 | Se instaló y respondió en una corrida local el 2026-10-09; el registro crudo no se conservó en este repositorio. [Procedencia](docs/evidence/compatibility.md). |
 | Claude Code → Cited MCP | 2026-10-09 | Verificación anterior: conexión y listado de ambas herramientas. No se afirma llamada por un modelo. [Procedencia](docs/evidence/compatibility.md). |
 | Codex → Cited MCP | 2026-10-09 | Verificación anterior: conexión y listado de ambas herramientas. No se afirma llamada por un modelo. [Procedencia](docs/evidence/compatibility.md). |
 | Cursor → Cited MCP | 2026-10-09 | Solo documentado; no probado. [Procedencia](docs/evidence/compatibility.md). |
+
+Sin verificar: búsqueda confiable entre idiomas sin embeddings. En la [corrida inglesa](docs/evidence/natural-2026-10-09T17-01-01-501Z/attempt-1.json), Cited devolvió una negativa y el agente afirmó falsamente que no había precio y que una afinación necesariamente requería inspección. En la [corrida inglesa anterior](docs/evidence/natural-2026-10-09T16-16-13-632Z/attempt-1.json), también afirmó falsamente que los documentos no cubrían servicios de bicicleta. Son errores del agente, no prueba de que falte el precio en los documentos.
 
 Sin verificar: clics de instalación en escritorio, otros sistemas operativos y despliegues remotos por HTTPS.
 

@@ -4,7 +4,7 @@ import { createRequire } from 'node:module'
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { copy } from './readme-graphics/copy.mjs'
-import { transcriptOf } from './readme-graphics/evidence.mjs'
+import { transcriptOf, hasOwnPassage, displayTranscriptOf } from './readme-graphics/evidence.mjs'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const cited = resolve(process.env.CITED_REPO ?? join(root, '..', 'community-main'))
@@ -17,7 +17,8 @@ const transcript = transcriptOf(record.events, record.prompt)
 if (record.exitCode !== 0 || record.transcript !== transcript || await read('docs/evidence/headless-answer.txt') !== `${transcript}\n`) throw new Error('Evidence does not match its events')
 const supporting = JSON.parse(await read(`docs/evidence/${record.supportingEvidence ?? 'headless-answer.json'}`))
 const passage = 'Afinación de bicicleta: 380 pesos.'
-if (supporting.exitCode !== 0 || supporting.transcript !== transcriptOf(supporting.events, supporting.prompt) || !supporting.events.some((event) => event.type === 'tool_result' && event.status === 'completed' && event.result?.includes(passage) && supporting.events.some((call) => call.type === 'tool_call' && call.tool === 'cited_search' && call.callId === event.callId))) throw new Error('Supporting search evidence is missing')
+if (!hasOwnPassage(supporting)) throw new Error('Supporting own-source evidence is missing')
+
 const escape = (text) => String(text).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 const fill = (html, values) => html.replace(/\{\{([A-Z]+)\}\}/g, (_, name) => {
   if (!(name in values)) throw new Error(`Missing template field ${name}`)
@@ -30,11 +31,11 @@ const outputs = []
 await mkdir(join(root, 'docs/images'), { recursive: true })
 try {
   for (const [name, template] of [['readme-banner', 'banner'], ['how-it-works', 'how-it-works'], ['real-answer', 'real-answer']]) {
-    for (const lang of template === 'real-answer' ? ['en'] : selected ? [selected] : Object.keys(copy)) {
+    for (const lang of selected ? [selected] : Object.keys(copy)) {
     for (const theme of ['light', 'dark']) {
       const dark = theme === 'dark'
       const flame = (await readFile(join(root, `docs/brand/katalis-flame${dark ? '' : '-ink'}-192.png`))).toString('base64')
-      const values = { ...copy[lang], TOOLS: [...new Set(record.events.filter((e) => e.type === 'tool_call').map((e) => e.tool.toUpperCase()))].join(' + '), SUPPORTLABEL: supporting.transcript === transcript ? 'Supporting passage · recorded search' : 'Supporting passage · separate recorded search', PROMPTLABEL: record.promptKind === 'natural' ? 'Natural question.' : 'Prompt specifies tool and query.', LANG: lang, KIND: name, TITLE: name, FONT: font, PAPER: dark ? '#171717' : '#FAFAF9', INK: dark ? '#FAFAF9' : '#171717', MUTED: dark ? '#B8B8B4' : '#555551', LINE: dark ? '#50504C' : '#CDCDC7', FLAME: flame, VERSION: escape(record.harnessVersion), DATE: record.capturedAt.slice(0, 10), TRANSCRIPT: escape(transcript).replace(/^(Question|Tool call|Tool result|Passages|Answer)$/gm, '<span class="label">$1</span>').replace(/\[1\]/g, '<span class="mark citation-chip">1</span>') }
+      const values = { ...copy[lang], TOOLS: [...new Set(record.events.filter((e) => e.type === 'tool_call').map((e) => e.tool.toUpperCase()))].join(' + '), LANG: lang, KIND: name, TITLE: name, FONT: font, PAPER: dark ? '#171717' : '#FAFAF9', INK: dark ? '#FAFAF9' : '#171717', MUTED: dark ? '#B8B8B4' : '#555551', LINE: dark ? '#50504C' : '#CDCDC7', FLAME: flame, VERSION: escape(record.harnessVersion), DATE: record.capturedAt.slice(0, 10), TRANSCRIPT: escape(displayTranscriptOf(record)).replace(/^(Question|Tool call|Tool result|Passages|Answer)$/gm, '<span class="label">$1</span>').replace(/\[1\]/g, '<span class="mark citation-chip">1</span>') }
       const content = fill(await read(`scripts/readme-graphics/${template}.html`), values)
       const page = await browser.newPage({ viewport: { width: 1280, height: 1 }, deviceScaleFactor: 1, colorScheme: theme, reducedMotion: 'reduce' })
       const requests = []
