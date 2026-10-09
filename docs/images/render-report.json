@@ -1,0 +1,77 @@
+{
+  "evidenceSha256": "3f2bd435e0e0972d4c0efe723b065abc511be15271e67f2ff4a4aa72f11aaadb",
+  "outputs": [
+    {
+      "file": "readme-banner-light.png",
+      "theme": "light",
+      "width": 1280,
+      "height": 603,
+      "bytes": 53554,
+      "sha256": "f8999eba9601abaa3fc0586e7fbfca4633aea0c20700ecefb11e8470fd18cf5d",
+      "font": true,
+      "failedImages": 0,
+      "overflow": [],
+      "externalRequests": 0
+    },
+    {
+      "file": "readme-banner-dark.png",
+      "theme": "dark",
+      "width": 1280,
+      "height": 603,
+      "bytes": 55787,
+      "sha256": "5d7ce20001cfd67674da16e995d3bde9cc789fe1b7407b4b67a76ce80520a11c",
+      "font": true,
+      "failedImages": 0,
+      "overflow": [],
+      "externalRequests": 0
+    },
+    {
+      "file": "how-it-works-light.png",
+      "theme": "light",
+      "width": 1280,
+      "height": 652,
+      "bytes": 63295,
+      "sha256": "41e33b0a67453e5a60fa853394d16d7e2d7c9dfe8098924f6dff600aad2e1a2b",
+      "font": true,
+      "failedImages": 0,
+      "overflow": [],
+      "externalRequests": 0
+    },
+    {
+      "file": "how-it-works-dark.png",
+      "theme": "dark",
+      "width": 1280,
+      "height": 652,
+      "bytes": 64809,
+      "sha256": "0dde7b635e1340f18ba521cbfe0b71f7fb24580354f14ee71389f2fa7a29420a",
+      "font": true,
+      "failedImages": 0,
+      "overflow": [],
+      "externalRequests": 0
+    },
+    {
+      "file": "real-answer-light.png",
+      "theme": "light",
+      "width": 1280,
+      "height": 1036,
+      "bytes": 97178,
+      "sha256": "a2a3e45aabf9ed5b3f49a9126a801c779dbadb762231c783523b5be20cbb8d69",
+      "font": true,
+      "failedImages": 0,
+      "overflow": [],
+      "externalRequests": 0
+    },
+    {
+      "file": "real-answer-dark.png",
+      "theme": "dark",
+      "width": 1280,
+      "height": 1036,
+      "bytes": 98171,
+      "sha256": "08e9e88c11990618478bb3d14a3627cc1c3c53c800cb163bad9b59b2297ae8e8",
+      "font": true,
+      "failedImages": 0,
+      "overflow": [],
+      "externalRequests": 0
+    }
+  ]
+}
