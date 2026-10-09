@@ -1,0 +1,173 @@
+export const DEFAULT_TIMEOUT_MS = 30000
+export const DEFAULT_SEARCH_LIMIT = 5
+export const MAX_SEARCH_LIMIT = 8
+
+const MCP_PATH = '/api/mcp'
+const MCP_PROTOCOL_VERSION = '2025-06-18'
+const JSON_RPC_VERSION = '2.0'
+
+export class CitedError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = 'CitedError'
+  }
+}
+
+function refuse(message) {
+  throw new CitedError(message)
+}
+
+function redact(text, secret) {
+  let value = String(text)
+  if (typeof secret === 'string' && secret.length > 0) value = value.split(secret).join('<token>')
+  return value.replace(/\/\/[^/@\s]+:[^/@\s]*@/g, '//')
+}
+
+function displayOf(url) {
+  try {
+    const parsed = new URL(String(url))
+    parsed.username = ''
+    parsed.password = ''
+    return redact(parsed.href)
+  } catch {
+    return 'the configured url'
+  }
+}
+
+export function endpointOf(url) {
+  const value = typeof url === 'string' ? url.trim() : ''
+  if (value === '') {
+    refuse('Cited is not configured: set `url` in the plugin configuration to the address of the Cited installation, like https://cited.example.com.')
+  }
+  let parsed
+  try {
+    parsed = new URL(value)
+  } catch {
+    refuse(`Cited is not configured: \`url\` is not an absolute address (${displayOf(value)}).`)
+  }
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+    refuse(`Cited is not configured: \`url\` must be http or https (${displayOf(value)}).`)
+  }
+  const path = parsed.pathname.replace(/\/+$/, '')
+  parsed.pathname = path.endsWith(MCP_PATH) ? path : `${path}${MCP_PATH}`
+  parsed.search = ''
+  parsed.hash = ''
+  return parsed
+}
+
+export function tokenOf(token) {
+  const value = typeof token === 'string' ? token.trim() : ''
+  if (value === '') {
+    refuse('Cited is not configured: set `token` in the plugin configuration to the CITED_MCP_TOKEN of that installation.')
+  }
+  return value
+}
+
+export function timeoutOf(value) {
+  return Number.isFinite(value) && value > 0 ? Math.floor(value) : DEFAULT_TIMEOUT_MS
+}
+
+export function searchLimitOf(value) {
+  if (value === undefined || value === null) return DEFAULT_SEARCH_LIMIT
+  if (Number.isInteger(value) === false || value < 1 || value > MAX_SEARCH_LIMIT) {
+    refuse(`the limit must be an integer between 1 and ${MAX_SEARCH_LIMIT}`)
+  }
+  return value
+}
+
+export function citedSettings(config) {
+  const source = config !== null && typeof config === 'object' ? config : {}
+  return {
+    url: typeof source.url === 'string' ? source.url : '',
+    token: typeof source.token === 'string' ? source.token : '',
+    timeoutMs: timeoutOf(source.timeoutMs),
+  }
+}
+
+function textOf(result) {
+  const content = result !== null && typeof result === 'object' ? result.content : undefined
+  if (Array.isArray(content) === false) return ''
+  return content
+    .filter((block) => block !== null && typeof block === 'object' && block.type === 'text' && typeof block.text === 'string')
+    .map((block) => block.text)
+    .join('\n')
+    .trim()
+}
+
+function jsonOf(text) {
+  try {
+    return JSON.parse(text)
+  } catch {
+    return null
+  }
+}
+
+export async function callCitedTool(options) {
+  const settings = citedSettings(options.settings)
+  const endpoint = endpointOf(settings.url)
+  const token = tokenOf(settings.token)
+  const timeoutMs = settings.timeoutMs
+  const deadline = AbortSignal.timeout(timeoutMs)
+  const signal = options.signal === undefined ? deadline : AbortSignal.any([options.signal, deadline])
+  const request = {
+    jsonrpc: JSON_RPC_VERSION,
+    id: options.requestId ?? 1,
+    method: 'tools/call',
+    params: { name: options.name, arguments: options.arguments ?? {} },
+  }
+  const failed = (message) => refuse(redact(message, token))
+
+  let response
+  try {
+    response = await (options.fetch ?? fetch)(endpoint, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json, text/event-stream',
+        authorization: `Bearer ${token}`,
+        'mcp-protocol-version': MCP_PROTOCOL_VERSION,
+      },
+      body: JSON.stringify(request),
+      signal,
+    })
+  } catch (error) {
+    if (deadline.aborted) failed(`Cited did not answer within ${timeoutMs} ms.`)
+    if (options.signal !== undefined && options.signal.aborted) failed('the call to Cited was cancelled before it answered.')
+    const cause = error instanceof Error ? error.message : String(error)
+    failed(`Cited could not be reached at ${endpoint.origin}: ${cause}`)
+  }
+
+  let text
+  try {
+    text = await response.text()
+  } catch (error) {
+    const cause = error instanceof Error ? error.message : String(error)
+    failed(`the answer of Cited at ${endpoint.origin} could not be read: ${cause}`)
+  }
+
+  const status = response.status
+  if (status === 401) failed('Cited rejected the bearer (401). Check that `token` is the CITED_MCP_TOKEN of that installation.')
+  if (status === 403) failed(`Cited refused the request (403) at ${endpoint.origin}: that installation answers only its own host.`)
+  if (status === 404) failed(`Cited answered 404 at ${endpoint.href}: the address points at a server whose MCP endpoint is off. Set CITED_MCP_TOKEN on that installation, or fix \`url\`.`)
+  if (status === 405) failed(`Cited answered 405 at ${endpoint.href}: the MCP endpoint accepts POST only.`)
+
+  const body = jsonOf(text)
+  if (status >= 400 || status === 202) {
+    const message = body !== null && typeof body === 'object' ? body.error?.message : undefined
+    if (typeof message === 'string' && message.length > 0) failed(`Cited answered ${status}: ${message}`)
+    if (status === 202) failed('Cited took the message as a notification instead of answering the call.')
+    failed(`Cited answered ${status} without a JSON-RPC error.`)
+  }
+  if (body === null || typeof body !== 'object') failed(`Cited answered ${status} with a body that is not JSON.`)
+  if (body.error !== undefined && body.error !== null) {
+    failed(`Cited refused the call with the JSON-RPC error ${body.error.code}: ${body.error.message}`)
+  }
+  const result = body.result
+  if (result === null || typeof result !== 'object') failed(`Cited answered ${status} without a result.`)
+  if (result.isError === true) failed(textOf(result) || 'Cited refused the call without a message.')
+  const structured = result.structuredContent
+  if (structured === null || typeof structured !== 'object' || Array.isArray(structured)) {
+    failed('Cited answered without the structured content of the tool.')
+  }
+  return structured
+}
