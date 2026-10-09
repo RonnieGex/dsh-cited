@@ -40,15 +40,19 @@ const positionValue = { type: 'integer', description: 'The position of the passa
 const excerptValue = { type: 'string', description: 'The text of the passage, so the answer can be checked.' }
 const leadValue = { type: 'integer', description: 'How many characters of the excerpt repeat the passage before it.' }
 
+function required(spec) {
+  return { ...spec, required: true }
+}
+
 const passageValue = {
   type: 'object',
   additionalProperties: false,
   properties: {
-    n: nValue,
-    document: documentValue,
-    heading: headingValue,
-    position: positionValue,
-    excerpt: excerptValue,
+    n: required(nValue),
+    document: required(documentValue),
+    heading: required(headingValue),
+    position: required(positionValue),
+    excerpt: required(excerptValue),
   },
 }
 
@@ -56,12 +60,12 @@ const citationValue = {
   type: 'object',
   additionalProperties: false,
   properties: {
-    n: nValue,
-    document: documentValue,
-    heading: headingValue,
-    position: positionValue,
-    excerpt: excerptValue,
-    lead: leadValue,
+    n: required(nValue),
+    document: required(documentValue),
+    heading: required(headingValue),
+    position: required(positionValue),
+    excerpt: required(excerptValue),
+    lead: required(leadValue),
   },
 }
 
@@ -151,11 +155,11 @@ export function citedSearchTool(settings) {
         type: 'object',
         additionalProperties: false,
         properties: {
-          passages: {
+          passages: required({
             type: 'array',
             description: 'The passages of the documents that match the query, best first.',
             items: passageValue,
-          },
+          }),
         },
       },
       render: (args, value) => [{ type: 'text', text: passagesText(value.passages, args.query) }],
@@ -194,9 +198,9 @@ export function citedAskTool(settings) {
         type: 'object',
         additionalProperties: false,
         properties: {
-          status: { type: 'string', enum: ['answered', 'refused'] },
-          answer: { type: 'string', description: 'The answer, or the sentence of the refusal.' },
-          citations: { type: 'array', description: 'The passages the answer cites, numbered.', items: citationValue },
+          status: required({ type: 'string', enum: ['answered', 'refused'] }),
+          answer: required({ type: 'string', description: 'The answer, or the sentence of the refusal.' }),
+          citations: required({ type: 'array', description: 'The passages the answer cites, numbered.', items: citationValue }),
         },
       },
       render: (_args, value) => [{ type: 'text', text: answerText(value) }],

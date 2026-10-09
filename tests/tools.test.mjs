@@ -44,6 +44,7 @@ describe('cited_search', () => {
       const content = tool.output.render({ query: 'afinación de bicicleta' }, value)
       assert.equal(content[0].type, 'text')
       assert.match(content[0].text, /1\. cafe-la-horquilla\.md · Precios/)
+      assert.match(content[0].text, /\n2\. bike-workshop-policies\.md\n/)
       assert.match(content[0].text, /380 pesos/)
       assert.match(content[0].text, /like \[1\]/)
     })

@@ -86,6 +86,8 @@ describe('the plugin loaded by the real DeepSeek Harness composition', () => {
     })
     assert.equal(result.isError, false)
     assert.equal(result.value.passages[0].document, 'cafe-la-horquilla.md')
+    assert.equal(result.value.passages[1].heading, null)
+    assert.match(result.value.passages[1].excerpt, /garantía/)
     assert.match(result.content[0].text, /380 pesos/)
     const request = JSON.parse(cited.requests.at(-1).body)
     assert.equal(request.method, 'tools/call')

@@ -11,7 +11,7 @@ export const PASSAGES = [
   {
     n: 2,
     document: 'bike-workshop-policies.md',
-    heading: 'Garantía',
+    heading: null,
     position: 3,
     excerpt: 'Las reparaciones tienen 30 días de garantía.',
   },
