@@ -1,0 +1,8 @@
+# dsh-cited bundle patch: mounts the plugin into a profile layer stack.
+# The row id is the key a user overrides in the profile's cordis.patch.yml; the row
+# name is the module this package exports, so it stays the package name. The two are
+# different on purpose: DSH's plugin card prints the row id and the module name on
+# separate lines.
+- insert:
+    - id: cited
+      name: 'dsh-cited'

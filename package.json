@@ -1,0 +1,64 @@
+{
+  "name": "dsh-cited",
+  "version": "0.1.0",
+  "description": "Search the documents of a Cited installation and answer from them, with citations.",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "cited",
+    "rag",
+    "citations",
+    "mcp",
+    "plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RonnieGex/dsh-cited.git"
+  },
+  "homepage": "https://github.com/RonnieGex/dsh-cited",
+  "author": "Katalis (https://katalis.dev)",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cited": "./lib/cited.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "locale/*.json",
+    "cordis.patch.yml",
+    "README.md",
+    "README.es.md",
+    "README.zh.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "engines": {
+    "node": ">=22.19"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test \"tests/**/*.test.mjs\"",
+    "gate": "node scripts/gate.mjs",
+    "link-host-deps": "node scripts/link-host-deps.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.2",
+    "@deepseek-ai/dsh-tools": "^0.1.6-alpha.2",
+    "@deepseek-ai/schemastery": "^3.18.2"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.2",
+    "@deepseek-ai/dsh-tools": "0.1.6-alpha.2",
+    "@deepseek-ai/schemastery": "3.18.2"
+  }
+}
