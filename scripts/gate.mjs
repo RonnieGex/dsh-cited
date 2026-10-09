@@ -6,6 +6,7 @@ import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { hostBin, hostInstallation } from './host.mjs'
 import { run, start } from './lib/process.mjs'
+import { databaseSnapshot } from './lib/database-snapshot.mjs'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const temp = join(root, '.tmp', 'gate')
@@ -169,6 +170,7 @@ try {
   const ready = await waitForCited(citedPort, token)
   claim('Cited answers POST /api/mcp on the test port', ready.ok, ready.detail)
 
+  const databaseBefore = databaseSnapshot(join(temp, 'cited.sqlite'))
   const smoke = outcome(run(process.execPath, [
     'scripts/smoke-install.mjs',
     '--home', dshHome,
@@ -187,6 +189,10 @@ try {
     if (/^(PASS|FAIL|INFO) /u.test(line)) note(`smoke: ${line}`)
   }
   claim('the isolated installation boots the headless profile and calls cited_search', smoke.status === 0 && smoke.text.includes('INSTALL: GREEN'), smoke.last)
+  const databaseAfter = databaseSnapshot(join(temp, 'cited.sqlite'))
+  const databaseUnchanged = JSON.stringify(databaseBefore) === JSON.stringify(databaseAfter)
+  await writeFile(join(evidence, 'database-state.json'), `${JSON.stringify({ before: databaseBefore, after: databaseAfter, unchanged: databaseUnchanged }, null, 2)}\n`)
+  claim('search and unconfigured ask preserve every sample table', databaseUnchanged)
 
   const dump = outcome(run(process.execPath, [hostBin(), '--profile', 'headless', '--dump-config'], {
     cwd: hostInstallation(),

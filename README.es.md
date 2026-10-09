@@ -82,7 +82,7 @@ Sin token en el servidor, el endpoint MCP de Cited está apagado. Genera uno con
 
 **Busca y deja que tu agente responda.** `cited_search` recupera pasajes sin llamar al modelo de respuestas de Cited. Cada uno incluye fuente y número de cita. Sin coincidencias no hay pasajes, tampoco una respuesta inventada. El modelo del agente y cualquier proveedor de embeddings configurado todavía pueden generar cargos.
 
-**Deja que Cited redacte.** `cited_ask` ejecuta el proceso de respuestas de Cited y devuelve una respuesta citada o una negativa explícita. Las citas contienen los campos del pasaje más `lead`, la longitud del texto superpuesto. Reutiliza `sessionId` para guardar una conversación y su hilo en Cited. Esto puede consumir el presupuesto del modelo del servidor.
+**Deja que Cited redacte.** `cited_ask` ejecuta el proceso de respuestas de Cited y devuelve una respuesta citada o una negativa explícita. Las citas contienen los campos del pasaje más `lead`, la longitud del texto superpuesto. El resultado de texto incluye documento, sección, posición y extracto exacto de cada fuente. Reutiliza `sessionId` para guardar una conversación y su hilo en Cited. Esto puede consumir el presupuesto del modelo del servidor.
 
 ## Tu token
 

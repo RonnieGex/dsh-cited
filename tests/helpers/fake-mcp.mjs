@@ -90,7 +90,7 @@ export async function startFakeCited(options = {}) {
         })
       }
       if (toolName === 'cited_ask') {
-        const value = String(args.question).includes('refuse') ? REFUSED : ANSWERED
+        const value = String(args.question).includes('refuse') ? REFUSED : options.answer ?? ANSWERED
         return send(200, {
           jsonrpc: '2.0',
           id: message.id,

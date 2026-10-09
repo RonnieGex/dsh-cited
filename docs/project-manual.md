@@ -10,6 +10,8 @@ The configuration has `url`, secret `token` and `timeoutMs` with a 30000 ms defa
 
 ## Development
 
+The text projection of `cited_ask` includes each numbered source's document, section, position and exact excerpt. Structured citations remain unchanged. Refusals without citations return the original refusal text without a source block.
+
 Run `npm test`, `node scripts/build.mjs --check` and `npm run gate` under Node 24. `scripts/link-host-deps.mjs` links dependencies from `DSH_INSTALL`. The gate uses `CITED_REPO` for a built Cited checkout containing `scripts/mcp-seed.ts` and `.next/`, creates sample state under `.tmp/gate` and boots an isolated headless harness. Never direct it at desktop state. For this verification, `CITED_REPO=../community-cap` supplied that build. Regenerate `lib/` with `npm run build` only after a runtime source change.
 
 README asset generation and evidence commands are in [readme-assets.md](readme-assets.md). The renderer uses `CITED_REPO` to locate existing Playwright, defaulting to `../community-main`. The gate's default remains `../cited`; set the variable explicitly when switching commands. `capture-readme-evidence.mjs` checks sample database fingerprints before and after the real search. See [the captured record](evidence/headless-answer.json).

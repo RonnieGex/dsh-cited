@@ -82,7 +82,7 @@ Without a server token, Cited’s MCP endpoint is off. Generate one with `openss
 
 **Search, then let your agent answer.** `cited_search` retrieves passages without calling Cited's answer model. Each has its source and citation number. No matches means no passages, not an invented answer. The calling agent's model and any configured embedding provider can still incur charges.
 
-**Let Cited write the answer.** `cited_ask` invokes Cited's answering pipeline and returns a cited answer or an explicit refusal. Citations have the passage fields above plus `lead`, the overlap length. Reuse `sessionId` to persist a conversation and its thread on Cited. This can consume that server's model budget.
+**Let Cited write the answer.** `cited_ask` invokes Cited's answering pipeline and returns a cited answer or an explicit refusal. Citations have the passage fields above plus `lead`, the overlap length. The text result includes each source's document, section, position and exact excerpt. Reuse `sessionId` to persist a conversation and its thread on Cited. This can consume that server's model budget.
 
 ## Your token
 
