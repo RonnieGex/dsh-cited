@@ -17,6 +17,11 @@ const citedPort = Number(process.env.CITED_PORT ?? 3231)
 const token = randomBytes(24).toString('base64url')
 const query = 'afinación de bicicleta'
 
+const worktree = resolve(root, '..')
+const redact = (value) => String(value)
+  .split(worktree).join('<worktree>')
+  .split(worktree.replaceAll('\\', '/')).join('<worktree>')
+
 const lines = []
 let failed = 0
 
@@ -192,7 +197,7 @@ try {
   claim('--dump-config prints the composed layer `# == dsh-cited`', dump.status === 0 && dump.text.includes('# == dsh-cited') && dump.text.includes('name: dsh-cited'), dump.last)
   const composed = dump.text.split('\n')
   const layerAt = composed.findIndex((line) => line.includes('# == dsh-cited'))
-  await writeFile(join(evidence, 'composed-config.txt'), `${composed.slice(Math.max(0, layerAt - 2), layerAt + 4).join('\n')}\n`, 'utf8')
+  await writeFile(join(evidence, 'composed-config.txt'), redact(`${composed.slice(Math.max(0, layerAt - 2), layerAt + 4).join('\n')}\n`), 'utf8')
 
   claim('the test never put the token in an evidence line', lines.join('\n').includes(token) === false)
 } finally {
@@ -225,11 +230,11 @@ claim(
   scan.status === 0 && scanned !== null && Number(scanned[1]) > 0 && /not a git repository/.test(scan.text) === false,
   scanned === null ? scan.last : `${scanned[1]} commits scanned`,
 )
-await writeFile(join(evidence, 'gitleaks.txt'), `${scan.text.trim()}\n`, 'utf8')
+await writeFile(join(evidence, 'gitleaks.txt'), redact(`${scan.text.trim()}\n`), 'utf8')
 
 const passed = lines.filter((line) => line.startsWith('PASS ')).length
 const verdict = failed === 0 ? 'GREEN' : 'RED'
-await writeFile(join(evidence, 'gate.txt'), `${lines.join('\n')}\nGATE: ${verdict} ${passed}/${lines.filter((line) => /^(PASS|FAIL) /u.test(line)).length} claims\n`, 'utf8')
-await writeFile(join(evidence, 'tests.txt'), `${tests.text.trim()}\n`, 'utf8')
+await writeFile(join(evidence, 'gate.txt'), redact(`${lines.join('\n')}\nGATE: ${verdict} ${passed}/${lines.filter((line) => /^(PASS|FAIL) /u.test(line)).length} claims\n`), 'utf8')
+await writeFile(join(evidence, 'tests.txt'), redact(`${tests.text.trim()}\n`), 'utf8')
 console.log(`GATE: ${verdict} ${passed}/${lines.filter((line) => /^(PASS|FAIL) /u.test(line)).length} claims passed`)
 process.exitCode = failed === 0 ? 0 : 1

@@ -1,0 +1,31 @@
+PASS the DeepSeek Harness installation is present — <worktree>\deepseek-harness
+PASS the checkout of Cited is present — <worktree>\community-mcp
+INFO this sandbox denies a child process with piped stdio; the suite runs in one process instead
+PASS the unit tests and the Loader composition pass — 52 passed, 0 failed
+PASS lib/ equals a fresh build of src/ — BUILD: GREEN 2 file(s) match src/
+PASS port 3231 is free for the test installation
+PASS the store of the test installation is seeded from samples/ — documents 4, store <worktree>\dsh-cited\.tmp\gate\cited.sqlite
+PASS Cited answers POST /api/mcp on the test port — tools/list answered 200
+INFO smoke: PASS dsh plugin --profile headless add <this repository> exits 0 — status 0
+INFO smoke: PASS the profile manifest lists dsh-cited among the installed dependencies and bundles — {"dsh-cited":"link:<worktree>/dsh-cited/"}
+INFO smoke: INFO booting the headless profile of deepseek-harness with the isolated home <worktree>\dsh-cited\.tmp\gate\dsh-home
+INFO smoke: PASS the booted profile serves the plugin manager the card is read from
+INFO smoke: PASS the plugin card of dsh-cited exists in the isolated profile
+INFO smoke: PASS the card is installed and enabled — version 0.1.0
+INFO smoke: PASS the card carries the description of the package — "Search the documents of a Cited installation and answer from them, with citations."
+INFO smoke: PASS the card carries the row of the bundle patch — ["cited"]
+INFO smoke: INFO card {"name":"dsh-cited","version":"0.1.0","description":"Search the documents of a Cited installation and answer from them, with citations.","enabled":true,"rows":["cited"]}
+INFO smoke: PASS cited_search through the registry is not a tool error — Cited found 4 passage(s) for "afinación de bicicleta". Cite each one by its number, like [1].
+INFO smoke: PASS cited_search returns at least one passage of the live Cited — 4 passage(s)
+INFO smoke: PASS at least one passage comes from the samples of Cited — cafe-la-horquilla.md, notas-del-negocio.txt, cafe-la-horquilla.md, cafe-la-horquilla.md
+INFO smoke: PASS the token is not in the result of the tool
+INFO smoke: PASS the numbered text reaches the model — Cited found 4 passage(s) for "afinación de bicicleta". Cite each one by its number, like [1]. |  | 1. cafe-la-horquilla.md ·
+INFO smoke: INFO cited_ask answered isError=true status=- text "Error: the AI is not connected yet: the owner connects it in the panel, or whoever installs Cited sets it on the server"
+INFO smoke: PASS a failure of cited_ask names no environment variable and carries no token
+PASS the isolated installation boots the headless profile and calls cited_search — INSTALL: GREEN
+PASS --dump-config prints the composed layer `# == dsh-cited` —   name: dsh-cited
+PASS the test never put the token in an evidence line
+PASS the checkout of Cited keeps the same tracked files
+PASS the repository has a history to scan — 5 commit(s)
+PASS gitleaks finds no secret in the history of this repository — 5 commits scanned
+GATE: GREEN 13/13 claims

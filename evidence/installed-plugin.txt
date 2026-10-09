@@ -1,0 +1,30 @@
+PASS dsh plugin --profile headless add <this repository> exits 0 — status 0
+PASS the profile manifest lists dsh-cited among the installed dependencies and bundles — {"dsh-cited":"link:<worktree>/dsh-cited/"}
+INFO booting the headless profile of deepseek-harness with the isolated home <worktree>\dsh-cited\.tmp\gate\dsh-home
+PASS the booted profile serves the plugin manager the card is read from
+PASS the plugin card of dsh-cited exists in the isolated profile
+PASS the card is installed and enabled — version 0.1.0
+PASS the card carries the description of the package — "Search the documents of a Cited installation and answer from them, with citations."
+PASS the card carries the row of the bundle patch — ["cited"]
+INFO card {"name":"dsh-cited","version":"0.1.0","description":"Search the documents of a Cited installation and answer from them, with citations.","enabled":true,"rows":["cited"]}
+PASS cited_search through the registry is not a tool error — Cited found 4 passage(s) for "afinación de bicicleta". Cite each one by its number, like [1].
+
+1. cafe-la-horquilla.md · Precios
+Precios
+- Espresso: 35 pesos.
+- Café de olla: 45 pesos.
+- Pan dulce del día: 30 pesos.
+- Afinación de bicicleta: 380 pesos.
+- Cambio de cámara: 120 pesos.
+2. notas-del-negocio.txt
+Café La Horquilla — notas del negocio Dirección: avenida central, frente al parque. Sin estacionamiento propio, pero hay uno público a media cuadra. Formas de pago: efectivo, tarjeta de débito y crédito. No aceptamos cheques ni transferencias para consumos menores a 200 pesos. Facturación: pedimos el RFC el mismo día de la compra. Las facturas del taller se emiten al terminar la reparación. Mascotas: bienvenidas en la terraza. Dentro del local solo si van en transportadora. Accesibilidad: la entrada tiene rampa y el baño es amplio. El taller está en planta baja. Contacto: mostrador, teléfono del local y correo del negocio. No damos precios por mensaje para trabajos que requieren revisar la bicicleta.
+3. cafe-la-horquilla.md · Café La Horquilla
+Café La Horquilla Somos un café y taller de bicicletas en el centro de la ciudad. Abrimos de martes a domingo.
+4. cafe-la-horquilla.md · Políticas
+Políticas Aceptamos efectivo y tarjeta. El taller recibe bicicletas hasta una hora antes del cierre. Si una reparación necesita refacciones, avisamos por teléfono antes de empezar.
+PASS cited_search returns at least one passage of the live Cited — 4 passage(s)
+PASS at least one passage comes from the samples of Cited — cafe-la-horquilla.md, notas-del-negocio.txt, cafe-la-horquilla.md, cafe-la-horquilla.md
+PASS the token is not in the result of the tool
+PASS the numbered text reaches the model — Cited found 4 passage(s) for "afinación de bicicleta". Cite each one by its number, like [1]. |  | 1. cafe-la-horquilla.md ·
+INFO cited_ask answered isError=true status=- text "Error: the AI is not connected yet: the owner connects it in the panel, or whoever installs Cited sets it on the server"
+PASS a failure of cited_ask names no environment variable and carries no token

@@ -6,6 +6,13 @@ import { hostBin, hostInstallation, hostRuntime } from './host.mjs'
 import { run } from './lib/process.mjs'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
+const worktree = resolve(root, '..')
+
+function redact(value) {
+  return String(value)
+    .split(worktree).join('<worktree>')
+    .split(worktree.replaceAll('\\', '/')).join('<worktree>')
+}
 
 function parseArgs(argv) {
   const options = {}
@@ -167,7 +174,7 @@ try {
 
 if (options.evidence !== undefined) {
   await mkdir(resolve(options.evidence, '..'), { recursive: true })
-  await writeFile(resolve(options.evidence), `${lines.join('\n')}\n`, 'utf8')
+  await writeFile(resolve(options.evidence), redact(`${lines.join('\n')}\n`), 'utf8')
 }
 
 if (failures.length > 0) {
