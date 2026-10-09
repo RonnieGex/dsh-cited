@@ -1,0 +1,46 @@
+{
+  "headRefOid": "3eb91e705e37228d0a0da5b544f04c1a06665ac0",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-09T22:19:06Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RonnieGex/dsh-cited/actions/runs/37998526534/job/114050596315",
+      "name": "Portable tests and build",
+      "startedAt": "2026-10-09T22:18:58Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-09T22:19:06Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RonnieGex/dsh-cited/actions/runs/37998521527/job/114050579820",
+      "name": "Portable tests and build",
+      "startedAt": "2026-10-09T22:18:55Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-09T22:19:05Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RonnieGex/dsh-cited/actions/runs/37998526534/job/114050596221",
+      "name": "Secret scan",
+      "startedAt": "2026-10-09T22:18:59Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-09T22:19:02Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/RonnieGex/dsh-cited/actions/runs/37998521527/job/114050580001",
+      "name": "Secret scan",
+      "startedAt": "2026-10-09T22:18:55Z",
+      "status": "COMPLETED",
+      "workflowName": "CI"
+    }
+  ],
+  "url": "https://github.com/RonnieGex/dsh-cited/pull/2"
+}
