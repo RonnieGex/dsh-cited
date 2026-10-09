@@ -98,11 +98,12 @@ Verified on Windows on 2026-10-09 against a local Cited with its sample document
 
 | DeepSeek Harness | Result |
 |---|---|
-| Desktop app 0.2.0-rc.2 (its bundled `dsh` command) | installs from the plugin folder with no version exemption, the profile composes the `dsh-cited` layer, and a run with the DeepSeek model called `cited_search` and answered "a bike tune-up costs 380 pesos" citing `cafe-la-horquilla.md` |
+| Desktop app 0.2.0-rc.2 (its bundled `dsh` command) | `dsh plugin add github:RonnieGex/dsh-cited` installs in 4 seconds with no build step and no version exemption, the profile composes the `dsh-cited` layer, and a run with the DeepSeek model called `cited_search` and answered "a bike tune-up costs 380 pesos [1]" citing `cafe-la-horquilla.md` |
 | 0.1.6-alpha.2 built from source | installs, composes and lists the card; `cited_search` returns the passages |
 
-The unit tests and a composition through the real Cordis loader run on every change. Not verified yet: the install
-from the GitHub address inside the desktop app's Plugins page, and `cited_ask` through the plugin with a chat model.
+The unit tests and a composition through the real Cordis loader run on every change. Not verified yet: the same install
+clicked through the desktop app's Plugins page (it runs the same plugin manager as the command), and `cited_ask`
+through the plugin with a chat model.
 
 ## License
 
