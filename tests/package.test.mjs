@@ -85,3 +85,14 @@ describe('the package DeepSeek Harness installs from the repository', () => {
     assert.match(await text('README.zh.md'), /RonnieGex\/dsh-cited/)
   })
 })
+
+// Fable's review, 2026-10-09: the desktop app of DeepSeek Harness 0.2.0-rc.2 rejected the plugin because the peer range
+// of dsh-tools only named the 0.1 line, and a range does not match a prerelease of another minor unless it names it.
+// The range keeps 0.1.6-alpha.2 (the source checkout) and the whole 0.2 line, release candidates included, and stops
+// before 0.3, which may change the host API.
+it('the peer range of dsh-tools accepts the 0.2 release candidates of the desktop app', async () => {
+  const manifest = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'))
+  const range = manifest.peerDependencies['@deepseek-ai/dsh-tools']
+  assert.match(range, />=0\.1\.6-alpha\.2 <0\.3\.0-0/)
+  assert.match(range, />=0\.2\.0-rc\.0 <0\.3\.0-0/)
+})

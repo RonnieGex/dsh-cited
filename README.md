@@ -94,19 +94,15 @@ harness when the two do not sit where the defaults look for them.
 
 ## What was tested
 
-Measured on Windows with Node v24.11.0, DeepSeek Harness built from the repository checkout
-`deepseek-harness/apps/cli/lib/bin.js`, and `Cited` served by `next start` from the `community-mcp` worktree with a
-store seeded from its own `samples/`:
+Verified on Windows on 2026-10-09 against a local Cited with its sample documents:
 
-- the unit tests and the Loader composition: green;
-- `dsh plugin --profile headless add <this repository>`: exit 0, and `dsh --profile headless --dump-config` prints the
-  `# == dsh-cited` layer;
-- the booted profile lists the plugin card with the description of the package;
-- `cited_search` through the registry returns the passages of `samples/`;
-- `cited_ask` against that installation answers the honest refusal, because the installation has no chat provider.
+| DeepSeek Harness | Result |
+|---|---|
+| Desktop app 0.2.0-rc.2 (its bundled `dsh` command) | installs from the plugin folder with no version exemption, the profile composes the `dsh-cited` layer, and a run with the DeepSeek model called `cited_search` and answered "a bike tune-up costs 380 pesos" citing `cafe-la-horquilla.md` |
+| 0.1.6-alpha.2 built from source | installs, composes and lists the card; `cited_search` returns the passages |
 
-Anything else — other harness revisions, `cited_ask` with a live chat provider, the Web card in a browser — is
-**not** verified by this repository.
+The unit tests and a composition through the real Cordis loader run on every change. Not verified yet: the install
+from the GitHub address inside the desktop app's Plugins page, and `cited_ask` through the plugin with a chat model.
 
 ## License
 

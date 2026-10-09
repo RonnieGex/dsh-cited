@@ -35,7 +35,7 @@ const home = resolve(options.home ?? join(root, '.tmp', 'smoke-home'))
 const logs = resolve(options.logs ?? join(root, '.tmp', 'smoke-logs'))
 const url = options.url
 const token = options.token
-const samples = resolve(options.samples ?? join(root, '..', 'community-mcp', 'samples'))
+const samples = resolve(options.samples ?? join(root, '..', 'cited', 'samples'))
 const query = options.query ?? 'afinación de bicicleta'
 
 if (url === undefined || token === undefined) {
