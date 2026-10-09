@@ -171,6 +171,21 @@ describe('an installation that is not configured yet', () => {
 })
 
 describe('the token never reaches a result', () => {
+  it('keeps the token out of cited_ask values and rendered answers, including refusal', async () => {
+    const secret = ['cited', 'ask', 'fixture'].join('-')
+    const cited = await startFakeCited({ token: secret })
+    try {
+      const tool = citedAskTool({ url: cited.url, token: secret })
+      for (const question of ['precios', 'refuse: piano']) {
+        const value = await tool.execute({ question }, exec)
+        assert.equal(JSON.stringify(value).includes(secret), false)
+        assert.equal(tool.output.render({ question }, value)[0].text.includes(secret), false)
+      }
+    } finally {
+      await cited.close()
+    }
+  })
+
   it('keeps the token out of the passages and out of a failure', async () => {
     const secret = ['cited', 'fixture', 'value'].join('-')
     const cited = await startFakeCited({ token: secret })

@@ -29,3 +29,7 @@ Keep source and packaged `lib/` synchronized. Update all three READMEs whenever 
 The current runtime includes exact citation excerpts. Run the round-three capture wrapper documented in [readme-assets.md](readme-assets.md) only when a new model batch is authorized. Saved evidence is rendered offline into 18 localized graphics. `natural-summary.json` separates a supported price answer from a refusal that happens to contain citations. The current result is 2/3, with both Spanish questions supported and the English question refused. Canonical evidence has its own ask passage; downloads retain additional same-run search calls. The token section describes conversation persistence only with sessionId.
 
 Harness uses deepseek-official/deepseek-v4-flash; the isolated Cited server uses deepseek/deepseek-v4-flash. The recorded plugin hash identifies the local built checkout. Fable merges plugin PR #1 before Cited PR #18 so concrete main-branch evidence links resolve. No production deployment belongs to these commands.
+
+## Round-four maintenance
+
+Keep source highlighting inside TOOL RESULT and preserve raw transcripts. Each README uses one answer line and one closing provenance paragraph. Keep the merged compatibility limits and distinguish unsupported agent marks [1] through [5] from the citations returned by Cited. `node --test tests/tools.test.mjs` checks that cited_ask values and rendered answers/refusals contain no configured secret. Runtime and shipped lib hashes remain unchanged.

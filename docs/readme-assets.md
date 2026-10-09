@@ -41,3 +41,7 @@ The renderer reuses the reference pipeline's approach to local assets, HTML temp
 ## Historical round-two evidence
 
 Three natural questions were executed on 2026-10-09. The first chose `cited_ask` and refused. The second chose `cited_search` twice and answered with citations. The third chose `cited_ask` and answered with citations. The first validator only allowed one search; both successful runs were revalidated from their unchanged saved events after widening the validator. No extra model call was made. The concise third run is canonical, and the second supplies the highlighted passage. The canonical answer updated `model_calls` state; the search left all tables unchanged. Raw model text, including Markdown and punctuation, is retained unchanged in downloadable evidence.
+
+## Round-four presentation
+
+Run `CITED_REPO=../community-readme node scripts/render-readme-graphics.mjs` under Node 24 to regenerate all 18 localized/theme graphics offline. The source chip and price highlight live inside the actual TOOL RESULT; no separate Passage 1 panel is drawn. The renderer compares displayed terminal text with the selected recorded exchange and complete answer. README quotations contain only the first answer line, followed by one closing provenance paragraph; model identifiers and table hashes stay in the linked compatibility evidence. The banner citation is a superscript. No new model call is needed.

@@ -64,17 +64,17 @@ The change SHALL retain green unit tests and the real integration gate, add docu
 - **THEN** the verified specifications and evidence are archived before commit, the feature branch is proposed to main without merging, and the final owner report includes Issues and CI status.
 
 ### Requirement: Round-two evidence and presentation
-The documentation SHALL implement Fable's approved round-two decisions and all plugin findings from the art and UX reviews.
+The documentation SHALL preserve approved evidence and identity while applying Fable's R4 source emphasis and concise documentation decisions.
 
 #### Scenario: Natural capture
-- **WHEN** up to three natural questions run in isolated headless state
-- **THEN** every attempt is saved, and only successful complete cited model events replace canonical evidence.
+- **WHEN** recorded natural evidence is presented
+- **THEN** every existing attempt remains available, canonical attempt-2 remains selected and no fresh model call is needed for presentation changes.
 
 #### Scenario: Read translated documentation
 - **WHEN** a reader opens English, Spanish or Chinese documentation
-- **THEN** installation starts with the verified CLI, requirements and troubleshooting are actionable, the exact answer is quoted, localized banner and steps are used, and limits are stated once in status and compatibility.
+- **THEN** installation starts with the verified CLI, requirements and troubleshooting are actionable, the answer quote contains only its first line, localized banners and steps remain, and concise limits link to complete compatibility evidence.
 
 #### Scenario: Inspect graphics
 - **WHEN** the renderer generates both themes
-- **THEN** the banner is 340px high, display weights are 800, labels are neutral, and the supporting passage and citation chip carry lime.
+- **THEN** the banner is 340px high, display weights are 800, labels are neutral, and the returned TOOL RESULT passage and citation chip carry lime without a separate supporting panel.
 

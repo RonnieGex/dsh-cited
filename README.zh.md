@@ -39,25 +39,9 @@ Cited 负责文档和检索，DeepSeek Harness 负责智能体与此插件。使
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-zh-dark.png"><img src="docs/images/real-answer-zh-light.png" alt="西班牙语自然问题：DeepSeek 调用 cited_ask，Cited 返回 380 比索 [1] 及本次回答自己的 cafe-la-horquilla.md、Precios、位置 2 来源片段。" width="1280"></picture>
 
-**2026-10-09**，在全新的临时 `DSH_HOME` 中安装本地构建的插件。面对自然问题，DeepSeek 调用 `cited_ask`；Cited 依据公开示例文档回答，随后 DeepSeek 回复：
-
 > La afinación de bicicleta en Café La Horquilla cuesta **380 pesos** [1].
->
-> Está en la lista de precios del documento `cafe-la-horquilla.md` (sección Precios), junto con:
->
-> - Espresso: 35 pesos
-> - Café de olla: 45 pesos
-> - Pan dulce del día: 30 pesos
-> - **Afinación de bicicleta: 380 pesos**
-> - Cambio de cámara: 120 pesos
->
-> Una nota relacionada, por si te sirve: el negocio aclara que no da precios por mensaje para trabajos que requieren revisar la bicicleta, así que ese precio aplica como tarifa publicada del servicio de afinación.
 
-图片展示选定的 `cited_ask` 调用及完整的西班牙语最终回答。同一次运行还调用了 `cited_search`；[原始转录](docs/evidence/headless-answer.txt)和[运行记录](docs/evidence/headless-answer.json)保留所有调用。高亮片段来自本次 `cited_ask` 返回的引用。终端保留原始 Markdown，仅高亮引用标记。
-
-**3 个自然问题中有 2 个获得带有依据引用的价格答案**；本次仅使用关键词搜索，没有 embeddings，英语问题可能无法匹配西班牙语价格片段，本次英语问题即未找到。[全部三个结果](docs/evidence/natural-summary.json)。
-
-Harness 智能体使用 `deepseek-official / deepseek-v4-flash`；Cited 回答流程使用 `deepseek / deepseek-v4-flash`，来源是隔离服务器的实际启动配置。规范运行仅改变 `model_calls`；其他表的哈希（包括空的对话表）均未改变。
+**3 个自然问题中有 2 个获得带有依据引用的价格答案**，使用关键词搜索而没有 embeddings；英语问题未找到西班牙语片段，Cited 拒绝回答。记录于 2026-10-09，使用在临时 headless 环境中安装的本地构建插件。图片展示一个选定的 `cited_ask` 调用及完整西班牙语回答，来源直接在工具结果中高亮。终端保留原始 Markdown。[转录](docs/evidence/headless-answer.txt)保留所有调用；[全部结果](docs/evidence/natural-summary.json)和[验证详情](docs/evidence/compatibility.md)记录限制、模型及数据库哈希。
 
 ## 安装
 
@@ -130,9 +114,7 @@ dsh plugin add github:RonnieGex/dsh-cited
 | Codex → Cited MCP | 2026-10-09 | 先前验证：连接并列出两个工具。不宣称模型实际调用过工具。[来源](docs/evidence/compatibility.md)。 |
 | Cursor → Cited MCP | 2026-10-09 | 仅有文档，尚未测试。[来源](docs/evidence/compatibility.md)。 |
 
-尚未验证：无 embeddings 时可靠的跨语言检索。在[本次英语运行](docs/evidence/natural-2026-10-09T17-01-01-501Z/attempt-1.json)中，Cited 拒答，智能体却错误声称文档没有价格，并称调校必须先检查车辆。[此前英语运行](docs/evidence/natural-2026-10-09T16-16-13-632Z/attempt-1.json)还错误声称文档不包含自行车服务。这些是智能体错误，不能证明文档缺少价格。
-
-尚未验证：桌面点击安装、其他操作系统及远程 HTTPS 部署。
+尚未验证：无 embeddings 时可靠的跨语言检索。在[本次英语运行](docs/evidence/natural-2026-10-09T17-01-01-501Z/attempt-1.json)中，Cited 拒答，智能体却错误声称文档没有价格，并称调校必须先检查车辆。[此前英语运行](docs/evidence/natural-2026-10-09T16-16-13-632Z/attempt-1.json)还错误声称文档不包含自行车服务。这些是智能体错误，不能证明文档缺少价格。 智能体的标记 [1] 至 [5] 不支持其错误断言；只有工具结果中的引用才有 Cited 的来源依据。 桌面点击安装、其他操作系统及远程 HTTPS 部署也尚未验证。
 
 ## 开发
 

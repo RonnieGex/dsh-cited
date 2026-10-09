@@ -1,6 +1,6 @@
 PASS the DeepSeek Harness installation is present — <worktree>\deepseek-harness
 PASS the checkout of Cited is present — <worktree>\community-cap
-PASS the unit tests and the Loader composition pass — 62 passed, 0 failed
+PASS the unit tests and the Loader composition pass — 64 passed, 0 failed
 PASS lib/ equals a fresh build of src/ — BUILD: GREEN 2 file(s) match src/
 PASS port 3231 is free for the test installation
 PASS the store of the test installation is seeded from samples/ — documents 4, store <worktree>\dsh-cited\.tmp\gate\cited.sqlite
@@ -26,6 +26,6 @@ PASS search and unconfigured ask preserve every sample table
 PASS --dump-config prints the composed layer `# == dsh-cited` —   name: dsh-cited
 PASS the test never put the token in an evidence line
 PASS the checkout of Cited keeps the same tracked files
-PASS the repository has a history to scan — 13 commit(s)
-PASS gitleaks finds no secret in the history of this repository — 13 commits scanned
+PASS the repository has a history to scan — 15 commit(s)
+PASS gitleaks finds no secret in the history of this repository — 15 commits scanned
 GATE: GREEN 14/14 claims

@@ -39,25 +39,9 @@ Cited hosts documents and retrieval. DeepSeek Harness hosts the agent and this p
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-dark.png"><img src="docs/images/real-answer-light.png" alt="Natural Spanish question: DeepSeek calls cited_ask; Cited returns 380 pesos [1] and its own source passage from cafe-la-horquilla.md, Precios, position 2." width="1280"></picture>
 
-On **2026-10-09**, a fresh temporary `DSH_HOME` installed the locally built plugin. Given a natural question, DeepSeek called `cited_ask`; Cited answered from its public sample documents, and DeepSeek replied:
-
 > La afinación de bicicleta en Café La Horquilla cuesta **380 pesos** [1].
->
-> Está en la lista de precios del documento `cafe-la-horquilla.md` (sección Precios), junto con:
->
-> - Espresso: 35 pesos
-> - Café de olla: 45 pesos
-> - Pan dulce del día: 30 pesos
-> - **Afinación de bicicleta: 380 pesos**
-> - Cambio de cámara: 120 pesos
->
-> Una nota relacionada, por si te sirve: el negocio aclara que no da precios por mensaje para trabajos que requieren revisar la bicicleta, así que ese precio aplica como tarifa publicada del servicio de afinación.
 
-The image shows the selected `cited_ask` exchange and the complete final answer in its original Spanish. The same run also called `cited_search`; the [raw transcript](docs/evidence/headless-answer.txt) and [run record](docs/evidence/headless-answer.json) retain every call. The highlighted passage was returned by `cited_ask` in this run. Terminal Markdown stays raw; citation marks are highlighted.
-
-**2 of 3 natural questions were answered with a supported price citation** using keyword search without embeddings; English questions over Spanish documents can miss the passage, as the English question did here. [All three outcomes](docs/evidence/natural-summary.json).
-
-The Harness agent used `deepseek-official / deepseek-v4-flash`; Cited’s answer pipeline used `deepseek / deepseek-v4-flash`, recorded from the isolated server’s startup configuration. The canonical run changed only `model_calls`; all other sample table hashes, including empty conversations, stayed unchanged.
+**2 of 3 natural questions were answered with a supported price citation**, using keyword search without embeddings; the English question missed the Spanish passage and Cited refused. Recorded on 2026-10-09 with a locally built plugin in temporary headless state. The image shows one selected `cited_ask` exchange and the complete Spanish answer, with its source highlighted inside the tool result. Terminal Markdown stays raw. The [transcript](docs/evidence/headless-answer.txt) preserves every call; [all outcomes](docs/evidence/natural-summary.json) and [verification details](docs/evidence/compatibility.md) record the limits, models and database hashes.
 
 ## Install
 
@@ -130,9 +114,7 @@ A range is not proof of every version. MCP clients below connect directly to **C
 | Codex → Cited MCP | 2026-10-09 | Prior verification: connected and listed both tools. No model tool call claimed. [Provenance](docs/evidence/compatibility.md). |
 | Cursor → Cited MCP | 2026-10-09 | Documented only; not tested. [Provenance](docs/evidence/compatibility.md). |
 
-Not verified: reliable cross-language retrieval without embeddings. In the [English run](docs/evidence/natural-2026-10-09T17-01-01-501Z/attempt-1.json), Cited refused and the agent falsely claimed the price was absent and a tune-up necessarily required inspection. In the [earlier English run](docs/evidence/natural-2026-10-09T16-16-13-632Z/attempt-1.json), it also falsely generalized that the documents did not cover bicycle services. These are agent errors, not evidence that the corpus lacks the price.
-
-Not verified: desktop installation clicks, other operating systems and remote HTTPS deployments.
+Not verified: reliable cross-language retrieval without embeddings. In the [English run](docs/evidence/natural-2026-10-09T17-01-01-501Z/attempt-1.json), Cited refused and the agent falsely claimed the price was absent and a tune-up necessarily required inspection. In the [earlier English run](docs/evidence/natural-2026-10-09T16-16-13-632Z/attempt-1.json), it also falsely generalized that the documents did not cover bicycle services. These are agent errors, not evidence that the corpus lacks the price. The agent's marks [1] to [5] do not support its false claim; only the citations in the tool result carry Cited's source support. Desktop installation clicks, other operating systems and remote HTTPS deployments also remain unverified.
 
 ## Development
 

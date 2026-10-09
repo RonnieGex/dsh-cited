@@ -7,6 +7,19 @@ import { transcriptOf } from '../scripts/readme-graphics/evidence.mjs'
 const root = new URL('../', import.meta.url)
 const read = (name) => readFile(new URL(name, root), 'utf8')
 
+test('round four presents one source in the tool result and one closing provenance paragraph', async () => {
+  assert.doesNotMatch(await read('scripts/readme-graphics/real-answer.html'), /supporting|SUPPORTLABEL/)
+  for (const file of ['README.md', 'README.es.md', 'README.zh.md']) {
+    const text = await read(file)
+    const section = text.split(/^## /m).find((part) => part.includes('docs/images/real-answer'))
+    assert.equal(section.match(/^> /gm).length, 1, file)
+    assert.doesNotMatch(section, /deepseek-v4-flash|model_calls/)
+    assert.ok(section.includes('docs/evidence/compatibility.md'))
+    assert.equal((text.match(/^(?:Not verified:|Sin verificar:|尚未验证：)/gm) ?? []).length, 1)
+    assert.match(text, /\[1\].*\[5\]/)
+  }
+})
+
 test('malformed capture events retain valid evidence and cannot become canonical', async () => {
   const { captureEvents, canonicalOf } = await import('../scripts/readme-graphics/evidence.mjs')
   const parsed = captureEvents('{"type":"final","text":"saved"}\n{"type":\n')

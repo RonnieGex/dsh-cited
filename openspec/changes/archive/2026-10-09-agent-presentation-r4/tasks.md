@@ -1,0 +1,17 @@
+# Tasks
+
+Authority: Fable's approved R4 assignment. Author: independent contracts agent. Every checked task requires an executed command and result in this change's reports/2026-10-09-step-N-name.md. Existing archived changes remain historical evidence.
+
+- [x] 0. Record branch, baseline, Node 24 and zero active predecessor changes. The standard branch-creation step feature/agent-presentation-r4 is superseded by the explicit R4 instruction to retain feature/readme-pro and PR #1; do not create another branch. Evidence: reports/2026-10-09-step-0-baseline.md.
+- [x] 1. TDD: add failing source-highlight, duplicate-panel, superscript, concise provenance and citedAskTool token guards before implementation; save red output in reports/2026-10-09-step-1-tdd.md. Evidence: reports/2026-10-09-step-1-tdd.md.
+- [x] 2. Update TOOL RESULT source markup, remove the supporting panel, shorten the title and correct banner superscript. Evidence: reports/2026-10-09-step-2-implementation.md.
+- [x] 3. Update EN/ES/ZH quotes, closing provenance, merged Not verified disclosures and linked compatibility evidence; retain unsupported [1] through [5] explanation. Evidence: reports/2026-10-09-step-2-implementation.md.
+- [x] 4. Review and update existing README/renderer tests, preserving canonical attempt-2 and runtime/evidence assertions. Evidence: reports/2026-10-09-step-2-implementation.md.
+- [x] 5. Run unit tests, build equivalence and integration gate under Node 24; snapshot public-sample database tables before/after with counts and hashes; report actual mutations in reports/2026-10-09-step-5-validation.md. Evidence: reports/2026-10-09-step-5-validation.md.
+- [x] 6. Execute authenticated/unauthenticated curl and concrete evidence-link checks; keep credentials off argv and reports; retain statuses in reports/2026-10-09-step-6-curl.md. Evidence: reports/2026-10-09-step-6-curl.md.
+- [x] 7. Regenerate all 18 localized/theme graphics and run Playwright rendering checks for no external requests, no overflow and correctly positioned in-tool highlights/footer; inspect generated images and save reports/2026-10-09-step-7-browser.md. Evidence: reports/2026-10-09-step-7-browser.md.
+- [x] 8. Update docs/evidence/compatibility.md, docs/readme-assets.md and the project manual with reproduction, provenance, concise presentation and merge dependency. Evidence: reports/2026-10-09-step-8-documentation.md.
+- [x] 9. /verify: strict OpenSpec validation and requirement-to-evidence reconciliation in reports/2026-10-09-step-9-verify.md. Evidence: reports/2026-10-09-step-9-verify.md.
+- [x] 10. /adversarial-review: independent reviewer records commands, Blocker/Major/Minor findings and PASS/PASS WITH GAPS/FAIL in reports/2026-10-09-step-10-adversarial-review.md; corrections require independent review. Executed independent review: PASS, zero open Blocker/Major/Minor; reports/2026-10-09-step-10-adversarial-review.md.
+- [x] 11. /archive: resolve Blockers and Majors, sync deltas and archive with all reports. Executed `openspec archive agent-presentation-r4 --yes` -> exit 0, deltas synced and reports archived.
+- [ ] 12. /commit: automated tests, existing CI and gitleaks before commit; push existing PR #1 and require green checks. Do not merge/deploy. Record actual SHA and id-to-fix mapping in the shared Spanish R4 delivery with classified Issues.

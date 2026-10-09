@@ -39,25 +39,9 @@ Cited aloja los documentos y la búsqueda. DeepSeek Harness aloja al agente y es
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-es-dark.png"><img src="docs/images/real-answer-es-light.png" alt="Pregunta natural en español: DeepSeek llama cited_ask; Cited devuelve 380 pesos [1] y su propio pasaje de cafe-la-horquilla.md, Precios, posición 2." width="1280"></picture>
 
-El **2026-10-09**, un `DSH_HOME` temporal instaló el plugin compilado localmente. Ante una pregunta natural, DeepSeek llamó a `cited_ask`; Cited respondió desde sus documentos públicos de muestra y DeepSeek contestó:
-
 > La afinación de bicicleta en Café La Horquilla cuesta **380 pesos** [1].
->
-> Está en la lista de precios del documento `cafe-la-horquilla.md` (sección Precios), junto con:
->
-> - Espresso: 35 pesos
-> - Café de olla: 45 pesos
-> - Pan dulce del día: 30 pesos
-> - **Afinación de bicicleta: 380 pesos**
-> - Cambio de cámara: 120 pesos
->
-> Una nota relacionada, por si te sirve: el negocio aclara que no da precios por mensaje para trabajos que requieren revisar la bicicleta, así que ese precio aplica como tarifa publicada del servicio de afinación.
 
-La imagen muestra el intercambio seleccionado de `cited_ask` y la respuesta final completa en su español original. La misma corrida también llamó a `cited_search`; la [transcripción cruda](docs/evidence/headless-answer.txt) y el [registro](docs/evidence/headless-answer.json) conservan todas las llamadas. El pasaje resaltado lo devolvió `cited_ask` en esta corrida. El Markdown de la terminal queda crudo; las marcas de cita se resaltan.
-
-**2 de 3 preguntas naturales recibieron el precio con una cita sustentada**, con búsqueda por palabras clave sin embeddings; una pregunta en inglés sobre documentos en español puede no encontrar el pasaje, como ocurrió aquí. [Los tres resultados](docs/evidence/natural-summary.json).
-
-El agente de Harness usó `deepseek-official / deepseek-v4-flash`; el proceso de respuestas de Cited usó `deepseek / deepseek-v4-flash`, registrado desde la configuración de arranque del servidor aislado. La corrida canónica cambió solo `model_calls`; los hashes de las demás tablas, incluidas las conversaciones vacías, quedaron iguales.
+**2 de 3 preguntas naturales recibieron el precio con una cita sustentada**, con búsqueda por palabras clave sin embeddings; la pregunta inglesa no encontró el pasaje en español y Cited se negó a responder. Grabado el 2026-10-09 con el plugin compilado localmente en estado headless temporal. La imagen muestra un intercambio seleccionado de `cited_ask` y la respuesta completa en español, con su fuente resaltada dentro del resultado. El Markdown de la terminal queda crudo. La [transcripción](docs/evidence/headless-answer.txt) conserva todas las llamadas; [los resultados](docs/evidence/natural-summary.json) y la [verificación](docs/evidence/compatibility.md) documentan límites, modelos y hashes de la base.
 
 ## Instalar
 
@@ -130,9 +114,7 @@ Un rango no demuestra cada versión. Los clientes MCP siguientes se conectan dir
 | Codex → Cited MCP | 2026-10-09 | Verificación anterior: conexión y listado de ambas herramientas. No se afirma llamada por un modelo. [Procedencia](docs/evidence/compatibility.md). |
 | Cursor → Cited MCP | 2026-10-09 | Solo documentado; no probado. [Procedencia](docs/evidence/compatibility.md). |
 
-Sin verificar: búsqueda confiable entre idiomas sin embeddings. En la [corrida inglesa](docs/evidence/natural-2026-10-09T17-01-01-501Z/attempt-1.json), Cited devolvió una negativa y el agente afirmó falsamente que no había precio y que una afinación necesariamente requería inspección. En la [corrida inglesa anterior](docs/evidence/natural-2026-10-09T16-16-13-632Z/attempt-1.json), también afirmó falsamente que los documentos no cubrían servicios de bicicleta. Son errores del agente, no prueba de que falte el precio en los documentos.
-
-Sin verificar: clics de instalación en escritorio, otros sistemas operativos y despliegues remotos por HTTPS.
+Sin verificar: búsqueda confiable entre idiomas sin embeddings. En la [corrida inglesa](docs/evidence/natural-2026-10-09T17-01-01-501Z/attempt-1.json), Cited devolvió una negativa y el agente afirmó falsamente que no había precio y que una afinación necesariamente requería inspección. En la [corrida inglesa anterior](docs/evidence/natural-2026-10-09T16-16-13-632Z/attempt-1.json), también afirmó falsamente que los documentos no cubrían servicios de bicicleta. Son errores del agente, no prueba de que falte el precio en los documentos. Las marcas [1] a [5] del agente no sustentan su afirmación falsa; solo las citas del resultado de la herramienta tienen el respaldo de fuentes de Cited. También siguen sin verificarse los clics de instalación en escritorio, otros sistemas operativos y despliegues remotos por HTTPS.
 
 ## Desarrollo
 
