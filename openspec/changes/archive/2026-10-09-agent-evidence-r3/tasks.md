@@ -17,6 +17,8 @@ Authority: Fable's approved round-three assignment. Author: independent contract
 - [x] 10. `/verify`: run strict OpenSpec validation and requirement/evidence reconciliation in `reports/2026-10-09-step-10-verify.md`.
 - [x] 11. `/adversarial-review`: independent reviewer records evidence, Blocker/Major/Minor findings and PASS/PASS WITH GAPS/FAIL; independently review corrections in `reports/2026-10-09-step-11-adversarial-review.md`.
 - [x] 12. `/archive`: archive only with Blockers and Majors resolved; retain reports alongside the change.
-- [ ] 13. `/commit`: run automated checks and gitleaks before committing; push PR #1 and require green checks. Do not merge or deploy. Record actual SHA/checks and defect-to-fix mapping with classified Issues in the shared Spanish delivery.
+- [x] 13. `/commit`: run automated checks and gitleaks before committing; push PR #1 and require green checks. Do not merge or deploy. Record actual SHA/checks and defect-to-fix mapping with classified Issues in the shared Spanish delivery.
 
 Archive evidence: `openspec archive agent-evidence-r3 --yes` succeeded after independent PASS WITH GAPS (no open Blocker/Major); `openspec validate --all --strict`: 3/3 valid. Minor historical TDD gap is preserved in the review; no unexecuted red is claimed.
+
+Commit evidence: staged gitleaks passed, implementation committed as da2dc14 and pushed to feature/readme-pro. `gh pr checks 1 --repo RonnieGex/dsh-cited`: four checks passed on both push and PR (runs37964948461/37964955777). PR body names runtime change,62 tests,18 graphics,2/3 outcomes and procedural Minor. No merge/deploy.
