@@ -1,0 +1,12 @@
+docs/images/real-answer-dark.png     | Bin 125217 -> 125354 bytes
+ docs/images/real-answer-es-dark.png  | Bin 126243 -> 126381 bytes
+ docs/images/real-answer-es-light.png | Bin 124941 -> 125079 bytes
+ docs/images/real-answer-light.png    | Bin 124299 -> 124434 bytes
+ docs/images/real-answer-zh-dark.png  | Bin 122250 -> 122391 bytes
+ docs/images/real-answer-zh-light.png | Bin 121520 -> 121657 bytes
+ docs/images/render-report.json       |  24 ++++++++++++------------
+ docs/project-manual.md               |   2 ++
+ docs/readme-assets.md                |   2 ++
+ scripts/render-readme-graphics.mjs   |  10 ++++++++--
+ tests/readme.test.mjs                |   6 ++++++
+ 11 files changed, 30 insertions(+), 14 deletions(-)

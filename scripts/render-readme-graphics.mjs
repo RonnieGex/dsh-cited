@@ -34,7 +34,7 @@ try {
     for (const theme of ['light', 'dark']) {
       const dark = theme === 'dark'
       const flame = (await readFile(join(root, `docs/brand/katalis-flame${dark ? '' : '-ink'}-192.png`))).toString('base64')
-      const values = { ...copy[lang], TOOLS: [...new Set(record.events.filter((e) => e.type === 'tool_call').map((e) => e.tool.toUpperCase()))].join(' + '), LANG: lang, KIND: name, TITLE: name, FONT: font, PAPER: dark ? '#171717' : '#FAFAF9', INK: dark ? '#FAFAF9' : '#171717', MUTED: dark ? '#B8B8B4' : '#555551', LINE: dark ? '#50504C' : '#CDCDC7', FLAME: flame, VERSION: escape(record.harnessVersion), DATE: record.capturedAt.slice(0, 10), TRANSCRIPT: escape(displayTranscriptOf(record)).replace(/(Tool result\n)([\s\S]*?)(\n\nAnswer\n)/, (_, label, result, end) => label + result.replace('Sources:\n1.', 'Sources:\n<span class="mark citation-chip source-chip">1</span>.').replace('Afinación de bicicleta: 380 pesos.', '<span class="mark source-passage">Afinación de bicicleta: 380 pesos.</span>') + end).replace(/^(Question|Tool call|Tool result|Passages|Answer)$/gm, '<span class="label">$1</span>').replace(/\[1\]/g, '<span class="mark citation-chip">1</span>') }
+      const values = { ...copy[lang], TOOLS: [...new Set(record.events.filter((e) => e.type === 'tool_call').map((e) => e.tool.toUpperCase()))].join(' + '), LANG: lang, KIND: name, TITLE: name, FONT: font, PAPER: dark ? '#171717' : '#FAFAF9', INK: dark ? '#FAFAF9' : '#171717', MUTED: dark ? '#B8B8B4' : '#555551', LINE: dark ? '#50504C' : '#CDCDC7', FLAME: flame, VERSION: escape(record.harnessVersion), DATE: record.capturedAt.slice(0, 10), TRANSCRIPT: escape(displayTranscriptOf(record)).replace(/(Tool result\n)([\s\S]*?)(\n\nAnswer\n)/, (_, label, result, end) => label + result.replace('Sources:\n1.', 'Sources:\n<span class="mark citation-chip source-chip">1</span>').replace('Afinación de bicicleta: 380 pesos.', '<span class="mark source-passage">Afinación de bicicleta: 380 pesos.</span>') + end).replace(/^(Question|Tool call|Tool result|Passages|Answer)$/gm, '<span class="label">$1</span>').replace(/\[1\]/g, '<span class="mark citation-chip">1</span>') }
       const content = fill(await read(`scripts/readme-graphics/${template}.html`), values)
       const page = await browser.newPage({ viewport: { width: 1280, height: 1 }, deviceScaleFactor: 1, colorScheme: theme, reducedMotion: 'reduce' })
       const requests = []
@@ -44,7 +44,13 @@ try {
       if (name === 'real-answer') {
         const source = await page.locator('.source-passage').textContent()
         if (source !== 'Afinación de bicicleta: 380 pesos.' || await page.locator('.terminal .source-chip').count() !== 1 || await page.locator('.supporting').count() !== 0) throw new Error('Expected one in-tool source highlight')
-        const displayed = await page.locator('.terminal pre').textContent()
+        const displayed = await page.locator('.terminal pre').evaluate((node) => {
+          const chip = node.querySelector('.source-chip')
+          if (!chip.nextSibling.textContent.startsWith(' cafe-la-horquilla.md')) throw new Error('Orphan source-chip punctuation')
+          const raw = node.cloneNode(true)
+          raw.querySelector('.source-chip').textContent = '1.'
+          return raw.textContent
+        })
         if (displayed !== displayTranscriptOf(record).replace(/\[1\]/g, '1')) throw new Error('Displayed evidence text changed')
       }
       const audit = await page.evaluate(() => ({

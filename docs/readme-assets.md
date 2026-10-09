@@ -45,3 +45,5 @@ Three natural questions were executed on 2026-10-09. The first chose `cited_ask`
 ## Round-four presentation
 
 Run `CITED_REPO=../community-readme node scripts/render-readme-graphics.mjs` under Node 24 to regenerate all 18 localized/theme graphics offline. The source chip and price highlight live inside the actual TOOL RESULT; no separate Passage 1 panel is drawn. The renderer compares displayed terminal text with the selected recorded exchange and complete answer. README quotations contain only the first answer line, followed by one closing provenance paragraph; model identifiers and table hashes stay in the linked compatibility evidence. The banner citation is a superscript. No new model call is needed.
+
+Round five removes the list period immediately after source chip 1 in all six real-answer images. The renderer normalizes only that chip back to raw `1.` when comparing the displayed transcript with the recording. Canonical evidence, sentence punctuation and unrelated graphics remain unchanged. Run the same renderer under Node 24.21.0.

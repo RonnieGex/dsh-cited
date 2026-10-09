@@ -1,8 +1,5 @@
-# agent-presentation-r4 Specification
+## MODIFIED Requirements
 
-## Purpose
-TBD - created by archiving change agent-presentation-r4. Update Purpose after archive.
-## Requirements
 ### Requirement: Source emphasis at the returned passage
 The real-answer graphic SHALL emphasize the returned tune-up price inside TOOL RESULT, SHALL render source citation chip 1 without an orphan following period, and SHALL NOT add a separate Passage 1 panel.
 
@@ -13,17 +10,3 @@ The real-answer graphic SHALL emphasize the returned tune-up price inside TOOL R
 #### Scenario: Preserving canonical output
 - **WHEN** displayed text is compared with the canonical raw transcript
 - **THEN** only the source-chip presentation is normalized back to the raw numbered-source punctuation, the full selected exchange and answer match, and canonical evidence files remain unchanged.
-
-### Requirement: Superscript brand citation
-The banner citation SHALL read as a citation attached to Harness.
-
-#### Scenario: Rendering the banner
-- **WHEN** the banner is rendered
-- **THEN** the chip uses vertical-align 0.9em, font-size 0.4em and margin-left 0.08em rather than a detached baseline object.
-
-### Requirement: Ask output excludes the token
-The cited_ask regression suite SHALL verify the configured MCP token is absent from both serialized return value and rendered text.
-
-#### Scenario: Successful cited ask
-- **WHEN** citedAskTool returns a fake-server supported answer
-- **THEN** JSON.stringify(value) and the rendered answer text both exclude the configured fake secret.

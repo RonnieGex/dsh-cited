@@ -7,6 +7,12 @@ import { transcriptOf } from '../scripts/readme-graphics/evidence.mjs'
 const root = new URL('../', import.meta.url)
 const read = (name) => readFile(new URL(name, root), 'utf8')
 
+test('source chip presentation does not retain the raw list period', async () => {
+  const renderer = await read('scripts/render-readme-graphics.mjs')
+  assert.doesNotMatch(renderer, /source-chip">1<\/span>\./)
+  assert.match(renderer, /source-chip">1<\/span>/)
+})
+
 test('round four presents one source in the tool result and one closing provenance paragraph', async () => {
   assert.doesNotMatch(await read('scripts/readme-graphics/real-answer.html'), /supporting|SUPPORTLABEL/)
   for (const file of ['README.md', 'README.es.md', 'README.zh.md']) {

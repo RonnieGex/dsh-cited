@@ -33,3 +33,5 @@ Harness uses deepseek-official/deepseek-v4-flash; the isolated Cited server uses
 ## Round-four maintenance
 
 Keep source highlighting inside TOOL RESULT and preserve raw transcripts. Each README uses one answer line and one closing provenance paragraph. Keep the merged compatibility limits and distinguish unsupported agent marks [1] through [5] from the citations returned by Cited. `node --test tests/tools.test.mjs` checks that cited_ask values and rendered answers/refusals contain no configured secret. Runtime and shipped lib hashes remain unchanged.
+
+Round-five source-chip presentation omits the raw list period after chip 1. Run `node scripts/render-readme-graphics.mjs` with `CITED_REPO=../community-readme` under Node 24.21.0; exact transcript comparison restores the chip punctuation only for validation. Do not edit the raw evidence to match the visual formatting.
