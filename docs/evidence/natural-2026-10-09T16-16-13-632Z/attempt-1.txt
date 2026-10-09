@@ -1,0 +1,23 @@
+Question
+How much does a bicycle tune-up cost at Café La Horquilla?
+
+[
+  {
+    "type": "tool_call",
+    "callId": "call_00_KVjXSGavkNAwOfEYTmXC4555",
+    "tool": "cited_ask",
+    "input": {
+      "question": "How much does a bicycle tune-up cost at Café La Horquilla?"
+    }
+  },
+  {
+    "type": "tool_result",
+    "callId": "call_00_KVjXSGavkNAwOfEYTmXC4555",
+    "status": "completed",
+    "result": "I can't find that in this business's documents."
+  },
+  {
+    "type": "final",
+    "text": "I can't find that in this business's documents. The cited documents don't appear to contain any pricing for bicycle tune-ups — or bicycle services at all.\n\nIf you meant a different business or a different service, let me know and I can search again."
+  }
+]

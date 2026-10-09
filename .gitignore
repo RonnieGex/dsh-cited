@@ -1,2 +1,5 @@
 node_modules/
 .tmp/
+.claude/agents/
+.codex/agents/
+.cursor/agents/

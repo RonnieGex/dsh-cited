@@ -1,0 +1,48 @@
+Question
+¿Cuánto cuesta la afinación de bicicleta en Café La Horquilla?
+
+Tool call
+cited_search {"query":"afinación bicicleta precio"}
+
+Passages
+Cited found 2 passage(s) for "afinación bicicleta precio". Cite each one by its number, like [1].
+
+1. cafe-la-horquilla.md · Precios
+Precios
+- Espresso: 35 pesos.
+- Café de olla: 45 pesos.
+- Pan dulce del día: 30 pesos.
+- Afinación de bicicleta: 380 pesos.
+- Cambio de cámara: 120 pesos.
+2. notas-del-negocio.txt
+Café La Horquilla — notas del negocio Dirección: avenida central, frente al parque. Sin estacionamiento propio, pero hay uno público a media cuadra. Formas de pago: efectivo, tarjeta de débito y crédito. No aceptamos cheques ni transferencias para consumos menores a 200 pesos. Facturación: pedimos el RFC el mismo día de la compra. Las facturas del taller se emiten al terminar la reparación. Mascotas: bienvenidas en la terraza. Dentro del local solo si van en transportadora. Accesibilidad: la entrada tiene rampa y el baño es amplio. El taller está en planta baja. Contacto: mostrador, teléfono del local y correo del negocio. No damos precios por mensaje para trabajos que requieren revisar la bicicleta.
+
+Tool call
+cited_search {"query":"Café La Horquilla servicios taller"}
+
+Passages
+Cited found 5 passage(s) for "Café La Horquilla servicios taller". Cite each one by its number, like [1].
+
+1. cafe-la-horquilla.md · Café La Horquilla
+Café La Horquilla Somos un café y taller de bicicletas en el centro de la ciudad. Abrimos de martes a domingo.
+2. notas-del-negocio.txt
+Café La Horquilla — notas del negocio Dirección: avenida central, frente al parque. Sin estacionamiento propio, pero hay uno público a media cuadra. Formas de pago: efectivo, tarjeta de débito y crédito. No aceptamos cheques ni transferencias para consumos menores a 200 pesos. Facturación: pedimos el RFC el mismo día de la compra. Las facturas del taller se emiten al terminar la reparación. Mascotas: bienvenidas en la terraza. Dentro del local solo si van en transportadora. Accesibilidad: la entrada tiene rampa y el baño es amplio. El taller está en planta baja. Contacto: mostrador, teléfono del local y correo del negocio. No damos precios por mensaje para trabajos que requieren revisar la bicicleta.
+3. bike-workshop-policies.md · Bike workshop policies at Café La Horquilla
+Bike workshop policies at Café La Horquilla Everything a customer needs to know before leaving a bicycle with us.
+4. README.txt
+Sample corpus of Cited These documents describe a fictional small business, Café La Horquilla, a café and bicycle workshop. They exist so the tests, the manual verification and the RAM measurement of this repository have something real to ingest. They were written for this repository. They are not the book of Construye, not golden cases, not holdout data, not a customer document and not prices of a real business.
+- cafe-la-horquilla.md: hours, prices and policies, in Spanish.
+- bike-workshop-policies.md: bookings, storage, groups and guarantee, in English.
+- notas-del-negocio.txt: payment, invoicing, pets, accessibility, in Spanish.
+5. cafe-la-horquilla.md · Políticas
+Políticas Aceptamos efectivo y tarjeta. El taller recibe bicicletas hasta una hora antes del cierre. Si una reparación necesita refacciones, avisamos por teléfono antes de empezar.
+
+Answer
+La afinación de bicicleta cuesta **380 pesos** [1].
+
+Está en la lista de precios del documento `cafe-la-horquilla.md` (sección "Precios"), junto con el espresso a 35 pesos, el café de olla a 45, el pan dulce del día a 30 y el cambio de cámara a 120 pesos [1].
+
+Un detalle útil: las notas del negocio aclaran que no dan precios por mensaje para trabajos que requieren revisar la bicicleta [2], así que conviene confirmarlo en el mostrador o por teléfono si el trabajo es distinto a una afinación estándar.
+
+[1] `cafe-la-horquilla.md` · Precios
+[2] `notas-del-negocio.txt`

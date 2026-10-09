@@ -103,7 +103,19 @@ describe('cited_ask', () => {
       assert.match(content[0].text, /380 pesos/)
       assert.match(content[0].text, /Sources:/)
       assert.match(content[0].text, /1\. cafe-la-horquilla\.md · Precios \(position 2\)/)
+      assert.ok(content[0].text.endsWith(`1. cafe-la-horquilla.md · Precios (position 2)\n${ANSWERED.citations[0].excerpt}`))
     })
+  })
+
+  it('renders every exact excerpt in order, including missing headings and multiline text', () => {
+    const tool = citedAskTool({ url: 'https://cited.example.com', token: 't' })
+    const value = { ...ANSWERED, citations: PASSAGES.map((passage) => ({ ...passage, lead: 0 })) }
+    value.citations[1].excerpt = '  Unchanged **text**.\nSecond line.  '
+    const before = structuredClone(value)
+    assert.equal(tool.output.render({}, value)[0].text, `${value.answer}\n\nSources:\n1. cafe-la-horquilla.md · Precios (position 2)\n${value.citations[0].excerpt}\n2. bike-workshop-policies.md (position 3)\n${value.citations[1].excerpt}`)
+    assert.deepEqual(value, before)
+    value.citations[1].heading = '   '
+    assert.ok(tool.output.render({}, value)[0].text.includes('2. bike-workshop-policies.md (position 3)\n'))
   })
 
   it('carries the honest refusal, without citations', async () => {
@@ -114,6 +126,18 @@ describe('cited_ask', () => {
       const content = tool.output.render({ question: 'refuse' }, value)
       assert.equal(content[0].text, REFUSED.answer)
     })
+  })
+
+  it('rejects missing required citation fields without fabricating an excerpt', async () => {
+    for (const field of ['n', 'document', 'position', 'excerpt', 'lead']) {
+      const answer = structuredClone(ANSWERED)
+      delete answer.citations[0][field]
+      const cited = await startFakeCited({ answer })
+      try {
+        const tool = citedAskTool({ url: cited.url, token: cited.token })
+        assert.match(await messageOf(() => tool.execute({ question: 'price' }, exec)), /citation in an unexpected form/)
+      } finally { await cited.close() }
+    }
   })
 
   it('sends the sessionId only when the model gave one', async () => {
@@ -147,6 +171,21 @@ describe('an installation that is not configured yet', () => {
 })
 
 describe('the token never reaches a result', () => {
+  it('keeps the token out of cited_ask values and rendered answers, including refusal', async () => {
+    const secret = ['cited', 'ask', 'fixture'].join('-')
+    const cited = await startFakeCited({ token: secret })
+    try {
+      const tool = citedAskTool({ url: cited.url, token: secret })
+      for (const question of ['precios', 'refuse: piano']) {
+        const value = await tool.execute({ question }, exec)
+        assert.equal(JSON.stringify(value).includes(secret), false)
+        assert.equal(tool.output.render({ question }, value)[0].text.includes(secret), false)
+      }
+    } finally {
+      await cited.close()
+    }
+  })
+
   it('keeps the token out of the passages and out of a failure', async () => {
     const secret = ['cited', 'fixture', 'value'].join('-')
     const cited = await startFakeCited({ token: secret })

@@ -131,7 +131,7 @@ function passagesText(passages, query) {
 function answerText(value) {
   if (value.citations.length === 0) return value.answer
   const sources = value.citations
-    .map((citation) => `${citation.n}. ${whereOf(citation.document, citation.heading)} (position ${citation.position})`)
+    .map((citation) => `${citation.n}. ${whereOf(citation.document, citation.heading)} (position ${citation.position})\n${citation.excerpt}`)
     .join('\n')
   return `${value.answer}\n\nSources:\n${sources}`
 }

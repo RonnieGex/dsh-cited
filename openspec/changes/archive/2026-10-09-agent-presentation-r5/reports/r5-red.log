@@ -1,0 +1,104 @@
+✖ source chip presentation does not retain the raw list period (14.0429ms)
+✔ round four presents one source in the tool result and one closing provenance paragraph (9.7423ms)
+✔ malformed capture events retain valid evidence and cannot become canonical (4.961ms)
+✔ current evidence selects one own-source exchange while preserving all raw calls (9.4586ms)
+✔ canonical selection prefers an ask with its own numbered price passage (1.2285ms)
+✔ evidence rejects invented, failed, unmatched and truncated tool results (1.1223ms)
+✔ all translations resolve local assets and carry the complete contracts (68.1778ms)
+✔ round-two documentation leads with verified installation and actionable configuration (3.9784ms)
+✔ published transcript is derived from successful saved model events (2.247ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 273.8185
+
+✖ failing tests:
+
+test at tests\readme.test.mjs:10:1
+✖ source chip presentation does not retain the raw list period (14.0429ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /source-chip">1<\/span>\./. Input:
+
+  "import { createHash } from 'node:crypto'\n" +
+    "import { mkdir, readFile, writeFile } from 'node:fs/promises'\n" +
+    "import { createRequire } from 'node:module'\n" +
+    "import { join, resolve } from 'node:path'\n" +
+    "import { fileURLToPath } from 'node:url'\n" +
+    "import { copy } from './readme-graphics/copy.mjs'\n" +
+    "import { transcriptOf, hasOwnPassage, displayTranscriptOf } from './readme-graphics/evidence.mjs'\n" +
+    '\n' +
+    "const root = fileURLToPath(new URL('..', import.meta.url))\n" +
+    "const cited = resolve(process.env.CITED_REPO ?? join(root, '..', 'community-main'))\n" +
+    "const { chromium } = createRequire(join(cited, 'package.json'))('@playwright/test')\n" +
+    "const read = (path) => readFile(join(root, path), 'utf8')\n" +
+    "const base = await read('scripts/readme-graphics/base.html')\n" +
+    "const font = (await readFile(join(root, 'docs/fonts/outfit/outfit-latin.woff2'))).toString('base64')\n" +
+    "const record = JSON.parse(await read('docs/evidence/headless-answer.json'))\n" +
+    'const transcript = transcriptOf(record.events, record.prompt)\n' +
+    "if (record.exitCode !== 0 || record.transcript !== transcript || await read('docs/evidence/headless-answer.txt') !== `${transcript}\\n`) throw new Error('Evidence does not match its events')\n" +
+    "const supporting = JSON.parse(await read(`docs/evidence/${record.supportingEvidence ?? 'headless-answer.json'}`))\n" +
+    "if (!hasOwnPassage(supporting)) throw new Error('Supporting own-source evidence is missing')\n" +
+    '\n' +
+    `const escape = (text) => String(text).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')\n` +
+    'const fill = (html, values) => html.replace(/\\{\\{([A-Z]+)\\}\\}/g, (_, name) => {\n' +
+    '  if (!(name in values)) throw new Error(`Missing template field ${name}`)\n' +
+    '  return values[name]\n' +
+    '})\n' +
+    "const selected = process.argv.find((arg) => arg.startsWith('--lang='))?.slice(7)\n" +
+    "if (selected && !(selected in copy)) throw new Error('Unknown language')\n" +
+    'const browser = await chromium.launch()\n' +
+    'const outputs = []\n' +
+    "await mkdir(join(root, 'docs/images'), { recursive: true })\n" +
+    'try {\n' +
+    "  for (const [name, template] of [['readme-banner', 'banner'], ['how-it-works', 'how-it-works'], ['real-answer', 'real-answer']]) {\n" +
+    '    for (const lang of selected ? [selected] : Object.keys(copy)) {\n' +
+    "    for (const theme of ['light', 'dark']) {\n" +
+    "      const dark = theme === 'dark'\n" +
+    "      const flame = (await readFile(join(root, `docs/brand/katalis-flame${dark ? '' : '-ink'}-192.png`))).toString('base64')\n" +
+    `      const values = { ...copy[lang], TOOLS: [...new Set(record.events.filter((e) => e.type === 'tool_call').map((e) => e.tool.toUpperCase()))].join(' + '), LANG: lang, KIND: name, TITLE: name, FONT: font, PAPER: dark ? '#171717' : '#FAFAF9', INK: dark ? '#FAFAF9' : '#171717', MUTED: dark ? '#B8B8B4' : '#555551', LINE: dark ? '#50504C' : '#CDCDC7', FLAME: flame, VERSION: escape(record.harnessVersion), DATE: record.capturedAt.slice(0, 10), TRANSCRIPT: escape(displayTranscriptOf(record)).replace(/(Tool result\\n)([\\s\\S]*?)(\\n\\nAnswer\\n)/, (_, label, result, end) => label + result.replace('Sources:\\n1.', 'Sources:\\n<span class="mark citation-chip source-chip">1</span>.').replace('Afinación de bicicleta: 380 pesos.', '<span class="mark source-passage">Afinación de bicicleta: 380 pesos.</span>') + end).replace(/^(Question|Tool call|Tool result|Passages|Answer)$/gm, '<span class="label">$1</span>').replace(/\\[1\\]/g, '<span class="mark citation-chip">1</span>') }\n` +
+    '      const content = fill(await read(`scripts/readme-graphics/${template}.html`), values)\n' +
+    "      const page = await browser.newPage({ viewport: { width: 1280, height: 1 }, deviceScaleFactor: 1, colorScheme: theme, reducedMotion: 'reduce' })\n" +
+    '      const requests = []\n' +
+    "      await page.route('**/*', (route) => { requests.push(route.request().url()); return route.abort() })\n" +
+    "      await page.setContent(fill(base, { ...values, CONTENT: content }), { waitUntil: 'load' })\n" +
+    '      await page.evaluate(() => document.fonts.ready)\n' +
+    "      if (name === 'real-answer') {\n" +
+    "        const source = await page.locator('.source-passage').textContent()\n" +
+    "        if (source !== 'Afinación de bicicleta: 380 pesos.' || await page.locator('.terminal .source-chip').count() !== 1 || await page.locator('.supporting').count() !== 0) throw new Error('Expected one in-tool source highlight')\n" +
+    "        const displayed = await page.locator('.terminal pre').textContent()\n" +
+    "        if (displayed !== displayTranscriptOf(record).replace(/\\[1\\]/g, '1')) throw new Error('Displayed evidence text changed')\n" +
+    '      }\n' +
+    '      const audit = await page.evaluate(() => ({\n' +
+    "        font: document.fonts.check('600 52px Outfit'), height: document.documentElement.scrollHeight,\n" +
+    '        failedImages: [...document.images].filter((image) => !image.complete || image.naturalWidth === 0).length,\n' +
+    "        overflow: [...document.querySelectorAll('main *')].filter((element) => {\n" +
+    '          const box = element.getBoundingClientRect()\n' +
+    "          return box.left < 0 || box.right > 1280.5 || element.scrollWidth > element.clientWidth + 1 && getComputedStyle(element).display !== 'inline'\n" +
+    '        }).map((element) => element.className || element.tagName),\n' +
+    '      }))\n' +
+    '      if (!audit.font || audit.failedImages || audit.overflow.length || requests.length) throw new Error(`${name}/${theme}: ${JSON.stringify({ ...audit, requests })}`)\n' +
+    "      const filename = `${name}${lang === 'en' ? '' : `-${lang}`}-${theme}.png`\n" +
+    "      const png = await page.screenshot({ path: join(root, 'docs/images', filename), fullPage: true, animations: 'disabled' })\n" +
+    "      outputs.push({ file: filename, theme, width: 1280, height: audit.height, bytes: png.length, sha256: createHash('sha256').update(png).digest('hex'), ...audit, externalRequests: requests.length })\n" +
+    '      await page.close()\n' +
+    '      console.log(`RENDER: ${filename} 1280x${audit.height}; Outfit loaded; no overflow; no external requests`)\n' +
+    '    }\n' +
+    '    }\n' +
+    '  }\n' +
+    '} finally { await browser.close() }\n' +
+    "if (outputs.reduce((sum, output) => sum + output.bytes, 0) >= 3000000) throw new Error('PNG budget exceeded')\n" +
+    "await writeFile(join(root, 'docs/images/render-report.json'), `${JSON.stringify({ evidenceSha256: createHash('sha256').update(transcript).digest('hex'), outputs }, null, 2)}\\n`)\n"
+
+      at TestContext.<anonymous> (file:///C:/Users/Franc/Documents/katalis-dev/dsh-cited/tests/readme.test.mjs:12:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'import { createHash } from \'node:crypto\'\nimport { mkdir, readFile, writeFile } from \'node:fs/promises\'\nimport { createRequire } from \'node:module\'\nimport { join, resolve } from \'node:path\'\nimport { fileURLToPath } from \'node:url\'\nimport { copy } from \'./readme-graphics/copy.mjs\'\nimport { transcriptOf, hasOwnPassage, displayTranscriptOf } from \'./readme-graphics/evidence.mjs\'\n\nconst root = fileURLToPath(new URL(\'..\', import.meta.url))\nconst cited = resolve(process.env.CITED_REPO ?? join(root, \'..\', \'community-main\'))\nconst { chromium } = createRequire(join(cited, \'package.json\'))(\'@playwright/test\')\nconst read = (path) => readFile(join(root, path), \'utf8\')\nconst base = await read(\'scripts/readme-graphics/base.html\')\nconst font = (await readFile(join(root, \'docs/fonts/outfit/outfit-latin.woff2\'))).toString(\'base64\')\nconst record = JSON.parse(await read(\'docs/evidence/headless-answer.json\'))\nconst transcript = transcriptOf(record.events, record.prompt)\nif (record.exitCode !== 0 || record.transcript !== transcript || await read(\'docs/evidence/headless-answer.txt\') !== `${transcript}\\n`) throw new Error(\'Evidence does not match its events\')\nconst supporting = JSON.parse(await read(`docs/evidence/${record.supportingEvidence ?? \'headless-answer.json\'}`))\nif (!hasOwnPassage(supporting)) throw new Error(\'Supporting own-source evidence is missing\')\n\nconst escape = (text) => String(text).replaceAll(\'&\', \'&amp;\').replaceAll(\'<\', \'&lt;\').replaceAll(\'>\', \'&gt;\').replaceAll(\'"\', \'&quot;\')\nconst fill = (html, values) => html.replace(/\\{\\{([A-Z]+)\\}\\}/g, (_, name) => {\n  if (!(name in values)) throw new Error(`Missing template field ${name}`)\n  return values[name]\n})\nconst selected = process.argv.find((arg) => arg.startsWith(\'--lang=\'))?.slice(7)\nif (selected && !(selected in copy)) throw new Error(\'Unknown language\')\nconst browser = await chromium.launch()\nconst outputs = []\nawait mkdir(join(root, \'docs/images\'), { recursive: true })\ntry {\n  for (const [name, template] of [[\'readme-banner\', \'banner\'], [\'how-it-works\', \'how-it-works\'], [\'real-answer\', \'real-answer\']]) {\n    for (const lang of selected ? [selected] : Object.keys(copy)) {\n    for (const theme of [\'light\', \'dark\']) {\n      const dark = theme === \'dark\'\n      const flame = (await readFile(join(root, `docs/brand/katalis-flame${dark ? \'\' : \'-ink\'}-192.png`))).toString(\'base64\')\n      const values = { ...copy[lang], TOOLS: [...new Set(record.events.filter((e) => e.type === \'tool_call\').map((e) => e.tool.toUpperCase()))].join(\' + \'), LANG: lang, KIND: name, TITLE: name, FONT: font, PAPER: dark ? \'#171717\' : \'#FAFAF9\', INK: dark ? \'#FAFAF9\' : \'#171717\', MUTED: dark ? \'#B8B8B4\' : \'#555551\', LINE: dark ? \'#50504C\' : \'#CDCDC7\', FLAME: flame, VERSION: escape(record.harnessVersion), DATE: record.capturedAt.slice(0, 10), TRANSCRIPT: escape(displayTranscriptOf(record)).replace(/(Tool result\\n)([\\s\\S]*?)(\\n\\nAnswer\\n)/, (_, label, result, end) => label + result.replace(\'Sources:\\n1.\', \'Sources:\\n<span class="mark citation-chip source-chip">1</span>.\').replace(\'Afinación de bicicleta: 380 pesos.\', \'<span class="mark source-passage">Afinación de bicicleta: 380 pesos.</span>\') + end).replace(/^(Question|Tool call|Tool result|Passages|Answer)$/gm, \'<span class="label">$1</span>\').replace(/\\[1\\]/g, \'<span class="mark citation-chip">1</span>\') }\n      const content = fill(await read(`scripts/readme-graphics/${template}.html`), values)\n      const page = await browser.newPage({ viewport: { width: 1280, height: 1 }, deviceScaleFactor: 1, colorScheme: theme, reducedMotion: \'reduce\' })\n      const requests = []\n      await page.route(\'**/*\', (route) => { requests.push(route.request().url()); return route.abort() })\n      await page.setContent(fill(base, { ...values, CONTENT: content }), { waitUntil: \'load\' })\n      await page.evaluate(() => document.fonts.ready)\n      if (name === \'real-answer\') {\n        const source = await page.locator(\'.source-passage\').textContent()\n        if (source !== \'Afinación de bicicleta: 380 pesos.\' || await page.locator(\'.terminal .source-chip\').count() !== 1 || await page.locator(\'.supporting\').count() !== 0) throw new Error(\'Expected one in-tool source highlight\')\n        const displayed = await page.locator(\'.terminal pre\').textContent()\n        if (displayed !== displayTranscriptOf(record).replace(/\\[1\\]/g, \'1\')) throw new Error(\'Displayed evidence text changed\')\n      }\n      const audit = await page.evaluate(() => ({\n        font: document.fonts.check(\'600 52px Outfit\'), height: document.documentElement.scrollHeight,\n        failedImages: [...document.images].filter((image) => !image.complete || image.naturalWidth === 0).length,\n        overflow: [...document.querySelectorAll(\'main *\')].filter((element) => {\n          const box = element.getBoundingClientRect()\n          return box.left < 0 || box.right > 1280.5 || element.scrollWidth > element.clientWidth + 1 && getComputedStyle(element).display !== \'inline\'\n        }).map((element) => element.className || element.tagName),\n      }))\n      if (!audit.font || audit.failedImages || audit.overflow.length || requests.length) throw new Error(`${name}/${theme}: ${JSON.stringify({ ...audit, requests })}`)\n      const filename = `${name}${lang === \'en\' ? \'\' : `-${lang}`}-${theme}.png`\n      const png = await page.screenshot({ path: join(root, \'docs/images\', filename), fullPage: true, animations: \'disabled\' })\n      outputs.push({ file: filename, theme, width: 1280, height: audit.height, bytes: png.length, sha256: createHash(\'sha256\').update(png).digest(\'hex\'), ...audit, externalRequests: requests.length })\n      await page.close()\n      console.log(`RENDER: ${filename} 1280x${audit.height}; Outfit loaded; no overflow; no external requests`)\n    }\n    }\n  }\n} finally { await browser.close() }\nif (outputs.reduce((sum, output) => sum + output.bytes, 0) >= 3000000) throw new Error(\'PNG budget exceeded\')\nawait writeFile(join(root, \'docs/images/render-report.json\'), `${JSON.stringify({ evidenceSha256: createHash(\'sha256\').update(transcript).digest(\'hex\'), outputs }, null, 2)}\\n`)\n',
+    expected: /source-chip">1<\/span>\./,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }

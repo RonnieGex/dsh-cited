@@ -1,0 +1,18 @@
+schema: spec-driven
+context: |
+  dsh-cited is an Apache-2.0 native DeepSeek Harness plugin, written in ESM JavaScript.
+  src/ implements cited_search and cited_ask over the configured Cited POST /api/mcp endpoint.
+  lib/ ships the built source so plugin installation needs no build permission.
+  Node 24 runs development validation; package.json defines the supported runtime and peer ranges.
+  The plugin has no database and no product frontend. Graphics use headless Chromium only.
+  Repository prose, code, specifications and commits use English. README.es.md and README.zh.md are full translations.
+  Apply docs/base-standards.md and docs/project-manual.md. Never control the desktop profile.
+rules:
+  proposal:
+    - Cite the authorized scope and keep specification, implementation and review authors separate.
+  specs:
+    - Use explicit SHALL requirements and WHEN/THEN scenarios with no unresolved implementation choice.
+  tasks:
+    - Start with feature/<change>, then TDD, implementation, existing tests, unit and database checks, curl, Playwright, documentation.
+    - Store executed command evidence under openspec/changes/<change>/reports/.
+    - Close with verify, independent adversarial-review, archive, then commit. Scan secrets before each commit.
