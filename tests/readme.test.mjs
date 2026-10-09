@@ -13,6 +13,7 @@ test('evidence rejects invented, failed, unmatched and truncated tool results', 
     { type: 'final', text: '380 pesos [1].' },
   ]
   assert.match(transcriptOf(events, 'How much?'), /380 pesos \[1\]/)
+  assert.match(transcriptOf(events.map((e) => e.type === 'tool_call' ? { ...e, tool: 'cited_ask' } : e), 'How much?'), /Tool result/)
   for (const invalid of [
     events.slice(1), events.slice(0, 2),
     events.map((e) => e.type === 'tool_result' ? { ...e, status: 'error' } : e),
@@ -31,11 +32,24 @@ test('all translations resolve local assets and carry the complete contracts', a
     for (const word of ['cited_search', 'cited_ask', 'sessionId', 'timeoutMs', 'CITED_MCP_TOKEN', 'Cursor', '2026-10-09', 'npm run gate']) assert.ok(text.includes(word), `${file}: ${word}`)
     assert.ok((text.match(/^## /gm) ?? []).length >= 9, file)
     for (const asset of ['readme-banner', 'how-it-works', 'real-answer']) {
-      for (const theme of ['light', 'dark']) assert.ok(text.includes(`docs/images/${asset}-${theme}.png`))
+      const language = asset === 'real-answer' || file === 'README.md' ? '' : file.includes('.es.') ? '-es' : '-zh'
+      for (const theme of ['light', 'dark']) assert.ok(text.includes(`docs/images/${asset}${language}-${theme}.png`))
     }
     const paths = [...text.matchAll(/(?:src|srcset)="([^"#]+)"|\]\(([^)#]+)(?:#[^)]*)?\)/g)].map((m) => m[1] ?? m[2])
     for (const path of paths.filter((p) => !/^https?:/.test(p))) await readFile(new URL(path, root))
   }
+})
+
+test('round-two documentation leads with verified installation and actionable configuration', async () => {
+  for (const file of ['README.md', 'README.es.md', 'README.zh.md']) {
+    const text = await read(file)
+    assert.ok(text.indexOf('dsh plugin add github:RonnieGex/dsh-cited') < text.indexOf('Plugins → Add plugin'))
+    for (const value of ['openssl rand -base64 32', '401', '404']) assert.ok(text.includes(value), `${file}: ${value}`)
+  }
+  const base = await read('scripts/readme-graphics/base.html')
+  assert.match(base, /font-weight:800/)
+  assert.doesNotMatch(base, /\.terminal \.label\{color:#DDF469/)
+  assert.doesNotMatch(await read('scripts/readme-graphics/banner.html'), /banner-footer/)
 })
 
 test('published transcript is derived from successful saved model events', async () => {

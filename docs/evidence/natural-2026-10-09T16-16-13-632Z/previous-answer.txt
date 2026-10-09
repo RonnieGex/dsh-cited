@@ -1,0 +1,20 @@
+Question
+How much does a bicycle tune-up cost?
+Use only cited_search with query "afinación de bicicleta" and limit 1. Answer in one short English sentence with the numbered citation. Do not use any other tool.
+
+Tool call
+cited_search {"query":"afinación de bicicleta","limit":1}
+
+Passages
+Cited found 1 passage(s) for "afinación de bicicleta". Cite each one by its number, like [1].
+
+1. cafe-la-horquilla.md · Precios
+Precios
+- Espresso: 35 pesos.
+- Café de olla: 45 pesos.
+- Pan dulce del día: 30 pesos.
+- Afinación de bicicleta: 380 pesos.
+- Cambio de cámara: 120 pesos.
+
+Answer
+A bicycle tune-up costs 380 pesos [1].

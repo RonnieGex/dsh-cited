@@ -21,3 +21,7 @@ The CI workflow tests portable contracts without a sibling harness checkout. Ful
 After cloning, run `npx -y -p node@24 node scripts/link-agent-contracts.mjs` to restore `.claude/agents`, `.codex/agents` and `.cursor/agents` from `ai-specs/agents`. These machine-local links are ignored by Git. The script uses junctions on Windows and relative directory symlinks on other platforms, preserves a correct existing link and refuses an unrelated path. OpenSpec-generated tool skills and commands are tracked normally.
 
 Keep source and packaged `lib/` synchronized. Update all three READMEs whenever public behavior changes. Keep compatibility claims dated and linked to saved evidence, distinguish documented clients from exercised clients, and keep secrets out of graphics. Preserve the OFL license with Outfit assets and identify the original brand asset provenance.
+
+## README round two
+
+Use the localized banner and steps renderer and the natural headless evidence described in [readme-assets.md](readme-assets.md). `src/` and `lib/` are unchanged. Install output can include missing peer warnings because the running harness supplies its host peers; successful tool calls establish that the installed plugin loaded. The canonical Spanish answer uses `cited_ask`; the highlighted price line is separately traced to the saved natural search.
