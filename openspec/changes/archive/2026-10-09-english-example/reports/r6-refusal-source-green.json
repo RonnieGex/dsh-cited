@@ -1,0 +1,6 @@
+{
+  "command": "node --test --test-name-pattern=English tests/readme.test.mjs",
+  "node": "v24.21.0",
+  "exitCode": 0,
+  "output": "✔ English guarantee evidence requires a supported source in the selected exchange (8.3308ms)\n✔ English guarantee validation rejects refusals and unrelated durations in either answer (11.138ms)\n✔ English recorded outcomes remain reproducible beside unchanged Spanish evidence (11.3736ms)\nℹ tests 3\nℹ suites 0\nℹ pass 3\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 168.9901\n"
+}

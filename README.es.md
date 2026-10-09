@@ -41,7 +41,7 @@ Cited aloja los documentos y la búsqueda. DeepSeek Harness aloja al agente y es
 
 > La afinación de bicicleta en Café La Horquilla cuesta **380 pesos** [1].
 
-**2 de 3 preguntas naturales recibieron el precio con una cita sustentada**, con búsqueda por palabras clave sin embeddings; la pregunta inglesa no encontró el pasaje en español y Cited se negó a responder. Grabado el 2026-10-09 con el plugin compilado localmente en estado headless temporal. La imagen muestra un intercambio seleccionado de `cited_ask` y la respuesta completa en español, con su fuente resaltada dentro del resultado. El Markdown de la terminal queda crudo. La [transcripción](docs/evidence/headless-answer.txt) conserva todas las llamadas; [los resultados](docs/evidence/natural-summary.json) y la [verificación](docs/evidence/compatibility.md) documentan límites, modelos y hashes de la base.
+**3 de 3 preguntas en inglés recibieron una cita sustentada sobre la garantía** de un documento inglés. El lote anterior del ejemplo español obtuvo **2 de 3**: sus dos preguntas españolas funcionaron y la pregunta inglesa no encontró el precio en español. La búsqueda por palabras clave, sin embeddings, puede no encontrar un pasaje español al preguntar en inglés. La imagen conserva el intercambio de `cited_ask` y la respuesta completa en español, grabados el 2026-10-09 con el plugin compilado localmente en estado headless temporal. La fuente está resaltada dentro del resultado y el Markdown queda crudo. La [transcripción española](docs/evidence/headless-answer.txt), la [inglesa](docs/evidence/headless-answer-en.txt), los [resultados ingleses](docs/evidence/natural-summary-en.json), los [del ejemplo español](docs/evidence/natural-summary.json) y la [verificación](docs/evidence/compatibility.md) conservan evidencia y límites. La nueva corrida inglesa instaló el plugin desde main de GitHub.
 
 ## Instalar
 
@@ -108,7 +108,7 @@ Un rango no demuestra cada versión. Los clientes MCP siguientes se conectan dir
 
 | Cliente | Fecha | Evidencia y límite |
 |---|---|---|
-| DeepSeek Harness 0.1.6-alpha.2, CLI desde código fuente | 2026-10-09 | Instalación del plugin compilado localmente y respuesta real de DeepSeek con `cited_ask` en estado headless aislado; la instalación de GitHub tiene evidencia anterior. [Registro](docs/evidence/headless-answer.json); [gate](evidence/gate.txt). |
+| DeepSeek Harness 0.1.6-alpha.2 | 2026-10-09 | Instalación del plugin desde main de GitHub y tres respuestas inglesas sustentadas sobre la garantía en estado headless aislado. [Record](docs/evidence/headless-answer-en.json); [gate](evidence/gate.txt). |
 | DeepSeek Harness 0.2.0-rc.2, CLI incluido | 2026-10-09 | Se instaló y respondió en una corrida local el 2026-10-09; el registro crudo no se conservó en este repositorio. [Procedencia](docs/evidence/compatibility.md). |
 | Claude Code → Cited MCP | 2026-10-09 | Verificación anterior: conexión y listado de ambas herramientas. No se afirma llamada por un modelo. [Procedencia](docs/evidence/compatibility.md). |
 | Codex → Cited MCP | 2026-10-09 | Verificación anterior: conexión y listado de ambas herramientas. No se afirma llamada por un modelo. [Procedencia](docs/evidence/compatibility.md). |

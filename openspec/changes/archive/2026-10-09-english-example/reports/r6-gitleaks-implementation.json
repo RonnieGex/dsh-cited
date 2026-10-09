@@ -1,0 +1,5 @@
+{
+  "command": "gitleaks git --pre-commit --staged --redact --no-banner --no-color",
+  "exitCode": 0,
+  "output": "4:18PM INF 0 commits scanned.\n4:18PM INF scanned ~203713 bytes (203.71 KB) in 246ms\n4:18PM INF no leaks found\n"
+}

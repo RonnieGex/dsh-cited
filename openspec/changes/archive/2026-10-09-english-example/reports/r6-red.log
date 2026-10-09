@@ -1,0 +1,52 @@
+✖ English guarantee evidence requires a supported source in the selected exchange (5.8287ms)
+✖ English recorded outcomes remain reproducible beside unchanged Spanish evidence (9.6939ms)
+✔ source chip presentation does not retain the raw list period (4.6663ms)
+✔ round four presents one source in the tool result and one closing provenance paragraph (4.558ms)
+✔ malformed capture events retain valid evidence and cannot become canonical (4.7669ms)
+✔ current evidence selects one own-source exchange while preserving all raw calls (7.7664ms)
+✔ canonical selection prefers an ask with its own numbered price passage (1.407ms)
+✔ evidence rejects invented, failed, unmatched and truncated tool results (0.7639ms)
+✔ all translations resolve local assets and carry the complete contracts (50.3747ms)
+✔ round-two documentation leads with verified installation and actionable configuration (3.6203ms)
+✔ published transcript is derived from successful saved model events (1.6584ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 9
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 266.6859
+
+✖ failing tests:
+
+test at dsh-cited\tests\readme.test.mjs:10:1
+✖ English guarantee evidence requires a supported source in the selected exchange (5.8287ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///<workspace>/dsh-cited/tests/readme.test.mjs:17:10)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at dsh-cited\tests\readme.test.mjs:32:1
+✖ English recorded outcomes remain reproducible beside unchanged Spanish evidence (9.6939ms)
+  Error: ENOENT: no such file or directory, open '<workspace>\dsh-cited\docs\evidence\headless-answer-en.json'
+      at async open (node:internal/fs/promises:1345:25)
+      at async readFile (node:internal/fs/promises:1996:14)
+      at async TestContext.<anonymous> (file:///<workspace>/dsh-cited/tests/readme.test.mjs:34:29)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '<workspace>\\dsh-cited\\docs\\evidence\\headless-answer-en.json'
+  }

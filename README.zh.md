@@ -37,11 +37,11 @@ Cited 负责文档和检索，DeepSeek Harness 负责智能体与此插件。使
 
 ## 一次真实回答
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-zh-dark.png"><img src="docs/images/real-answer-zh-light.png" alt="西班牙语自然问题：DeepSeek 调用 cited_ask，Cited 返回 380 比索 [1] 及本次回答自己的 cafe-la-horquilla.md、Precios、位置 2 来源片段。" width="1280"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-zh-dark.png"><img src="docs/images/real-answer-zh-light.png" alt="英语自然提问：DeepSeek 调用 cited_ask，给出 90 天维修保修回答 [1]，来源为同次调用的 bike-workshop-policies.md，Guarantee，第 4 段。" width="1280"></picture>
 
-> La afinación de bicicleta en Café La Horquilla cuesta **380 pesos** [1].
+> Yes. Every repair carries a **90-day guarantee on the work**, and parts carry the guarantee of their maker [1].
 
-**3 个自然问题中有 2 个获得带有依据引用的价格答案**，使用关键词搜索而没有 embeddings；英语问题未找到西班牙语片段，Cited 拒绝回答。记录于 2026-10-09，使用在临时 headless 环境中安装的本地构建插件。图片展示一个选定的 `cited_ask` 调用及完整西班牙语回答，来源直接在工具结果中高亮。终端保留原始 Markdown。[转录](docs/evidence/headless-answer.txt)保留所有调用；[全部结果](docs/evidence/natural-summary.json)和[验证详情](docs/evidence/compatibility.md)记录限制、模型及数据库哈希。
+**3 个英语问题中有 3 个获得有依据的保修引用**，来源是英语文档。此前西班牙语示例所在批次的结果为 **2/3**：两个西班牙语问题成功，英语问题未找到西班牙语价格片段。没有 embeddings 的关键词搜索可能无法匹配跨语言问题。英语记录于 2026-10-09，插件从 GitHub main 安装到临时 headless 环境。图片保留选定的 `cited_ask` 调用和完整英语回答，并在 TOOL RESULT 中高亮同次调用的来源；终端 Markdown 保持原样。[英语转录](docs/evidence/headless-answer-en.txt)、[英语结果](docs/evidence/natural-summary-en.json)、[西班牙语示例结果](docs/evidence/natural-summary.json)和[验证详情](docs/evidence/compatibility.md)保留完整证据与限制。
 
 ## 安装
 
@@ -108,7 +108,7 @@ dsh plugin add github:RonnieGex/dsh-cited
 
 | 客户端 | 日期 | 证据与限制 |
 |---|---|---|
-| DeepSeek Harness 0.1.6-alpha.2，源码 CLI | 2026-10-09 | 本次在隔离 headless 状态中安装本地构建的插件，并由真实 DeepSeek 调用 `cited_ask` 回答；GitHub 安装为此前的独立验证。[记录](docs/evidence/headless-answer.json)；[gate](evidence/gate.txt)。 |
+| DeepSeek Harness 0.1.6-alpha.2 | 2026-10-09 | 从 GitHub main 安装插件，在隔离 headless 环境中完成三个有依据的英语保修回答。 [Record](docs/evidence/headless-answer-en.json); [gate](evidence/gate.txt). |
 | DeepSeek Harness 0.2.0-rc.2，内置 CLI | 2026-10-09 | 已于 2026-10-09 在本地运行中完成安装并回答；本仓库未保留原始日志。[证据来源](docs/evidence/compatibility.md)。 |
 | Claude Code → Cited MCP | 2026-10-09 | 先前验证：连接并列出两个工具。不宣称模型实际调用过工具。[来源](docs/evidence/compatibility.md)。 |
 | Codex → Cited MCP | 2026-10-09 | 先前验证：连接并列出两个工具。不宣称模型实际调用过工具。[来源](docs/evidence/compatibility.md)。 |

@@ -1,0 +1,7 @@
+- Validating...
+✓ spec/agent-evidence-r3
+✓ spec/agent-presentation-r4
+✓ spec/ask-citation-excerpts
+✓ change/english-example
+✓ spec/professional-readme
+Totals: 5 passed, 0 failed (5 items)

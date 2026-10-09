@@ -2,6 +2,16 @@
 
 Date: 2026-10-09. Separate fresh execution from inherited verification.
 
+## Fresh English execution in round six
+
+[The English canonical run](headless-answer-en.json) is the first of [three natural English questions](natural-summary-en.json) about the public English `bike-workshop-policies.md` sample. All three received a supported 90-day repair-work guarantee answer and the numbered Guarantee passage from their own `cited_ask` call. No prompt names a tool. The [raw transcript](headless-answer-en.txt) preserves the complete exchange and final answer, including original model punctuation.
+
+`node scripts/capture-english-evidence.mjs` installed `github:RonnieGex/dsh-cited` from main in a temporary `DSH_HOME`, profile `headless`. The installed lock resolves main commit `802abfa509df343c970b96e2b7fbfb5aae00a7f3`; the installed runtime hash equals that commit's `lib/index.js`. The record identifies Harness 0.1.6-alpha.2, Node 24.21.0 and both effective models: Harness deepseek-official/deepseek-v4-flash and Cited deepseek/deepseek-v4-flash. The isolated sample server used port 3246 and was stopped after capture. No desktop profile or production server was used.
+
+The new batch scored 3/3. The historical batch behind the Spanish example remains 2/3 and includes two Spanish successes plus one English failure over a Spanish price passage. Keyword search without embeddings can miss such cross-language passages; the new English success does not establish cross-language reliability. Each English attempt retains all events, validation results and all 19 database fingerprints before/after; only model_calls changed, and conversations remained empty. Installation, fresh-fixture seed and authenticated/unauthenticated curl results accompany the attempts.
+
+English and Chinese graphics use the English record; Spanish graphics retain the historical Spanish record byte for byte. The validator selects a supported exchange by callId, rejects unsupported durations and refusals, and the renderer never stitches separate runs. The English-example plugin PR must merge before the corresponding Cited PR or landing publication, so the new main-branch evidence links resolve.
+
 ## Fresh execution in round three
 
 [The canonical run](headless-answer.json) records a local built-plugin installation on source CLI 0.1.6-alpha.2, Windows, Node 24, in a temporary headless profile. The installed lib/index.js SHA-256 matches the checkout. It does not claim installation from an unmerged GitHub main branch. [The transcript](headless-answer.txt) preserves all original calls; the visual selects the ask exchange and the complete final answer, labeled explicitly.
@@ -25,4 +35,4 @@ The owner-approved assignment dated 2026-10-09, titled "Cited con agentes, READM
 
 Those observations were supplied as prior verification, not rerun by this change. Their raw client logs are not part of this repository. Do not promote them to end-to-end model calls. Claude Code, Codex and Cursor concern Cited’s MCP endpoint; the DeepSeek Harness row concerns this native plugin. No desktop UI click-through claim is made.
 
-The prior GitHub installation and paired evidence are preserved in [the previous canonical record](natural-2026-10-09T17-01-01-501Z/previous-answer.json). They do not identify the currently installed local build. Merge dsh-cited PR #1 before Cited PR #18; main-branch links depend on that order.
+The prior GitHub installation and paired evidence are preserved in [the previous canonical record](natural-2026-10-09T17-01-01-501Z/previous-answer.json). They identify historical verification separately from the main-installed round-six runtime.

@@ -4,7 +4,7 @@ import { createRequire } from 'node:module'
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { copy } from './readme-graphics/copy.mjs'
-import { transcriptOf, hasOwnPassage, displayTranscriptOf } from './readme-graphics/evidence.mjs'
+import { transcriptOf, hasOwnPassage, displayTranscriptOf, evidenceContractOf, supportedExchangeOf } from './readme-graphics/evidence.mjs'
 
 const root = fileURLToPath(new URL('..', import.meta.url))
 const cited = resolve(process.env.CITED_REPO ?? join(root, '..', 'community-main'))
@@ -12,11 +12,15 @@ const { chromium } = createRequire(join(cited, 'package.json'))('@playwright/tes
 const read = (path) => readFile(join(root, path), 'utf8')
 const base = await read('scripts/readme-graphics/base.html')
 const font = (await readFile(join(root, 'docs/fonts/outfit/outfit-latin.woff2'))).toString('base64')
-const record = JSON.parse(await read('docs/evidence/headless-answer.json'))
-const transcript = transcriptOf(record.events, record.prompt)
-if (record.exitCode !== 0 || record.transcript !== transcript || await read('docs/evidence/headless-answer.txt') !== `${transcript}\n`) throw new Error('Evidence does not match its events')
-const supporting = JSON.parse(await read(`docs/evidence/${record.supportingEvidence ?? 'headless-answer.json'}`))
-if (!hasOwnPassage(supporting)) throw new Error('Supporting own-source evidence is missing')
+const records = {}
+for (const lang of ['en', 'es']) {
+  const filename = `headless-answer${lang === 'en' ? '-en' : ''}`
+  const record = JSON.parse(await read(`docs/evidence/${filename}.json`))
+  const transcript = transcriptOf(record.events, record.prompt)
+  if (record.language !== lang || record.exitCode !== 0 || record.transcript !== transcript || await read(`docs/evidence/${filename}.txt`) !== `${transcript}\n`) throw new Error('Evidence does not match its events or language')
+  if (!hasOwnPassage(record)) throw new Error('Supporting own-source evidence is missing')
+  records[lang] = record
+}
 
 const escape = (text) => String(text).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
 const fill = (html, values) => html.replace(/\{\{([A-Z]+)\}\}/g, (_, name) => {
@@ -31,10 +35,13 @@ await mkdir(join(root, 'docs/images'), { recursive: true })
 try {
   for (const [name, template] of [['readme-banner', 'banner'], ['how-it-works', 'how-it-works'], ['real-answer', 'real-answer']]) {
     for (const lang of selected ? [selected] : Object.keys(copy)) {
+    const record = records[lang === 'es' ? 'es' : 'en']
+    const contract = evidenceContractOf(record)
+    const exchange = supportedExchangeOf(record, 'cited_ask') ?? supportedExchangeOf(record, 'cited_search')
     for (const theme of ['light', 'dark']) {
       const dark = theme === 'dark'
       const flame = (await readFile(join(root, `docs/brand/katalis-flame${dark ? '' : '-ink'}-192.png`))).toString('base64')
-      const values = { ...copy[lang], TOOLS: [...new Set(record.events.filter((e) => e.type === 'tool_call').map((e) => e.tool.toUpperCase()))].join(' + '), LANG: lang, KIND: name, TITLE: name, FONT: font, PAPER: dark ? '#171717' : '#FAFAF9', INK: dark ? '#FAFAF9' : '#171717', MUTED: dark ? '#B8B8B4' : '#555551', LINE: dark ? '#50504C' : '#CDCDC7', FLAME: flame, VERSION: escape(record.harnessVersion), DATE: record.capturedAt.slice(0, 10), TRANSCRIPT: escape(displayTranscriptOf(record)).replace(/(Tool result\n)([\s\S]*?)(\n\nAnswer\n)/, (_, label, result, end) => label + result.replace('Sources:\n1.', 'Sources:\n<span class="mark citation-chip source-chip">1</span>').replace('Afinación de bicicleta: 380 pesos.', '<span class="mark source-passage">Afinación de bicicleta: 380 pesos.</span>') + end).replace(/^(Question|Tool call|Tool result|Passages|Answer)$/gm, '<span class="label">$1</span>').replace(/\[1\]/g, '<span class="mark citation-chip">1</span>') }
+      const values = { ...copy[lang], EVIDENCEPATH: `docs/evidence/headless-answer${lang === 'es' ? '' : '-en'}.txt`, EXCHANGELABEL: copy[lang].EXCHANGELABEL.replace('cited_ask', exchange.call.tool), TOOLS: [...new Set(record.events.filter((e) => e.type === 'tool_call').map((e) => e.tool.toUpperCase()))].join(' + '), LANG: lang, KIND: name, TITLE: name, FONT: font, PAPER: dark ? '#171717' : '#FAFAF9', INK: dark ? '#FAFAF9' : '#171717', MUTED: dark ? '#B8B8B4' : '#555551', LINE: dark ? '#50504C' : '#CDCDC7', FLAME: flame, VERSION: escape(record.harnessVersion), DATE: record.capturedAt.slice(0, 10), TRANSCRIPT: escape(displayTranscriptOf(record)).replace(/((?:Tool result|Passages)\n)([\s\S]*?)(\n\nAnswer\n)/, (_, label, result, end) => label + result.replace(escape(exchange.sourceLine), escape(exchange.sourceLine).replace(/^1\./, '<span class="mark citation-chip source-chip">1</span>')).replace(escape(contract.highlight), `<span class="mark source-passage">${escape(contract.highlight)}</span>`) + end).replace(/^(Question|Tool call|Tool result|Passages|Answer)$/gm, '<span class="label">$1</span>').replace(/\[1\]/g, '<span class="mark citation-chip">1</span>') }
       const content = fill(await read(`scripts/readme-graphics/${template}.html`), values)
       const page = await browser.newPage({ viewport: { width: 1280, height: 1 }, deviceScaleFactor: 1, colorScheme: theme, reducedMotion: 'reduce' })
       const requests = []
@@ -42,15 +49,16 @@ try {
       await page.setContent(fill(base, { ...values, CONTENT: content }), { waitUntil: 'load' })
       await page.evaluate(() => document.fonts.ready)
       if (name === 'real-answer') {
+        if (await page.locator('.evidence-footer .muted').textContent() !== values.EVIDENCEPATH) throw new Error('Transcript reference differs from selected language')
         const source = await page.locator('.source-passage').textContent()
-        if (source !== 'Afinación de bicicleta: 380 pesos.' || await page.locator('.terminal .source-chip').count() !== 1 || await page.locator('.supporting').count() !== 0) throw new Error('Expected one in-tool source highlight')
-        const displayed = await page.locator('.terminal pre').evaluate((node) => {
+        if (source !== contract.highlight || await page.locator('.terminal .source-chip').count() !== 1 || await page.locator('.supporting').count() !== 0) throw new Error('Expected one in-tool source highlight')
+        const displayed = await page.locator('.terminal pre').evaluate((node, documentName) => {
           const chip = node.querySelector('.source-chip')
-          if (!chip.nextSibling.textContent.startsWith(' cafe-la-horquilla.md')) throw new Error('Orphan source-chip punctuation')
+          if (!chip.nextSibling.textContent.startsWith(` ${documentName}`)) throw new Error('Orphan source-chip punctuation')
           const raw = node.cloneNode(true)
           raw.querySelector('.source-chip').textContent = '1.'
           return raw.textContent
-        })
+        }, contract.document)
         if (displayed !== displayTranscriptOf(record).replace(/\[1\]/g, '1')) throw new Error('Displayed evidence text changed')
       }
       const audit = await page.evaluate(() => ({
@@ -72,4 +80,4 @@ try {
   }
 } finally { await browser.close() }
 if (outputs.reduce((sum, output) => sum + output.bytes, 0) >= 3000000) throw new Error('PNG budget exceeded')
-await writeFile(join(root, 'docs/images/render-report.json'), `${JSON.stringify({ evidenceSha256: createHash('sha256').update(transcript).digest('hex'), outputs }, null, 2)}\n`)
+await writeFile(join(root, 'docs/images/render-report.json'), `${JSON.stringify({ evidenceSha256: Object.fromEntries(Object.entries(records).map(([lang, record]) => [lang, createHash('sha256').update(record.transcript).digest('hex')])), outputs }, null, 2)}\n`)

@@ -1,0 +1,6 @@
+{
+  "command": "node scripts/build.mjs --check",
+  "node": "v24.21.0",
+  "exitCode": 0,
+  "output": "BUILD: GREEN 2 file(s) match src/\n"
+}

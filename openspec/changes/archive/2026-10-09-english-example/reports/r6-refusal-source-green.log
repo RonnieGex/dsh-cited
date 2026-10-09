@@ -1,0 +1,11 @@
+✔ English guarantee evidence requires a supported source in the selected exchange (8.3308ms)
+✔ English guarantee validation rejects refusals and unrelated durations in either answer (11.138ms)
+✔ English recorded outcomes remain reproducible beside unchanged Spanish evidence (11.3736ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 168.9901

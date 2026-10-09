@@ -7,6 +7,61 @@ import { transcriptOf } from '../scripts/readme-graphics/evidence.mjs'
 const root = new URL('../', import.meta.url)
 const read = (name) => readFile(new URL(name, root), 'utf8')
 
+test('English guarantee evidence requires a supported source in the selected exchange', async () => {
+  const { canonicalOf, hasOwnPassage, displayTranscriptOf } = await import('../scripts/readme-graphics/evidence.mjs')
+  const record = { exitCode: 0, language: 'en', prompt: 'Is there a guarantee on repairs at the bike workshop?', events: [
+    { type: 'tool_call', callId: 'one', tool: 'cited_ask', input: { question: 'Is there a guarantee on repairs at the bike workshop?' } },
+    { type: 'tool_result', callId: 'one', status: 'completed', result: 'Repairs have a 90 day guarantee on the work [1].\n\nSources:\n1. bike-workshop-policies.md · Guarantee (position 4)\nGuarantee\nEvery repair carries a 90 day guarantee on the work. Parts carry the guarantee of their maker.' },
+    { type: 'final', text: 'Repairs carry a **90 day guarantee** on the work [1].' },
+  ] }
+  assert.equal(hasOwnPassage(record, 'cited_ask'), true)
+  assert.equal(canonicalOf([record]), record)
+  for (const [from, to] of [['bike-workshop-policies.md', 'other.md'], [' · Guarantee', ' · Storage'], ['Every repair carries a 90 day guarantee on the work.', 'No guarantee.']]) {
+    const invalid = structuredClone(record)
+    invalid.events[1].result = invalid.events[1].result.replace(from, to)
+    assert.equal(hasOwnPassage(invalid), false)
+  }
+  const refused = structuredClone(record)
+  refused.events[2].text = 'I cannot find a guarantee [1].'
+  assert.equal(hasOwnPassage(refused), false)
+  const earlier = [{ type: 'tool_call', callId: 'zero', tool: 'cited_ask', input: {} }, { type: 'tool_result', callId: 'zero', status: 'completed', result: 'No relevant passage.' }]
+  const multiple = { ...record, events: [...earlier, ...record.events] }
+  assert.equal(displayTranscriptOf(multiple), displayTranscriptOf(record))
+})
+
+test('English guarantee validation rejects refusals and unrelated durations in either answer', async () => {
+  const { hasOwnPassage } = await import('../scripts/readme-graphics/evidence.mjs')
+  const record = JSON.parse(await read('docs/evidence/headless-answer-en.json'))
+  for (const text of ['I cannot confirm a 90-day guarantee on repair work [1].', 'Repairs do not have a 90-day guarantee [1].', 'The storage period is 90 days [1].', 'I cannot confirm the repair guarantee [1].\n\nSource: Every repair carries a 90 day guarantee on the work.', 'Does repair work have a 90-day guarantee [1]?', 'Repair work may have a 90-day guarantee [1].']) {
+    for (const type of ['final', 'tool_result']) {
+      const invalid = structuredClone(record)
+      const event = invalid.events.find((entry) => entry.type === type)
+      if (type === 'final') event.text = text
+      else event.result = text + '\n\nSources:\n' + event.result.split('\n\nSources:\n')[1]
+      invalid.transcript = transcriptOf(invalid.events, invalid.prompt)
+      assert.equal(hasOwnPassage(invalid), false, `${type}: ${text}`)
+    }
+  }
+})
+
+test('English recorded outcomes remain reproducible beside unchanged Spanish evidence', async () => {
+  const { hasOwnPassage, canonicalOf } = await import('../scripts/readme-graphics/evidence.mjs')
+  const record = JSON.parse(await read('docs/evidence/headless-answer-en.json'))
+  const summary = JSON.parse(await read('docs/evidence/natural-summary-en.json'))
+  const attempts = await Promise.all(summary.attempts.map(({ artifact }) => read(`docs/evidence/${artifact}`).then(JSON.parse)))
+  assert.equal(attempts.length, 3)
+  assert.equal(summary.answeredWithCitation, attempts.filter((attempt) => hasOwnPassage(attempt)).length)
+  assert.ok(summary.answeredWithCitation > 0)
+  assert.deepEqual(record.events, canonicalOf(attempts).events)
+  assert.equal(record.language, 'en')
+  assert.equal(record.installationSource, 'github:RonnieGex/dsh-cited#main')
+  assert.match(record.sourceCommit, /^[0-9a-f]{40}$/)
+  assert.equal(record.pluginSha256, record.installedSha256)
+  assert.equal(await read('docs/evidence/headless-answer-en.txt'), `${transcriptOf(record.events, record.prompt)}\n`)
+  for (const file of ['README.md', 'README.zh.md']) assert.ok((await read(file)).includes('headless-answer-en.txt'))
+  assert.ok((await read('README.es.md')).includes('headless-answer.txt'))
+})
+
 test('source chip presentation does not retain the raw list period', async () => {
   const renderer = await read('scripts/render-readme-graphics.mjs')
   assert.doesNotMatch(renderer, /source-chip">1<\/span>\./)
