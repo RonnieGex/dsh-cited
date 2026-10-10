@@ -5,216 +5,414 @@
   },
   "outputs": [
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "readme-banner-light.png",
       "theme": "light",
       "width": 1280,
       "height": 340,
-      "bytes": 30428,
-      "sha256": "3274d29775042c7f81845e49fb4eb5b5df169c84879526433e75e71725f6adf6",
+      "bytes": 31371,
+      "sha256": "640795a12bd305f5e7d1832754d96f44e1cbbb975aa046417fb41ecc88ce3679",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "readme-banner-dark.png",
       "theme": "dark",
       "width": 1280,
       "height": 340,
-      "bytes": 31667,
-      "sha256": "a3fcd196cd60ffaa5ed188da77c6d3f1567056ce228f5af406cc87c77bfa325e",
+      "bytes": 32601,
+      "sha256": "9545acb3cb4aff7831f61fe223682123f89c3420116e32c94684455572b9205a",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "readme-banner-es-light.png",
       "theme": "light",
       "width": 1280,
       "height": 340,
-      "bytes": 32309,
-      "sha256": "4908ee5781f565aa4586efa9e810a8e5cbed15ef2175afa9431a6260f8960a8d",
+      "bytes": 33280,
+      "sha256": "60ab9fdbbd6fd95cc965073205fc02d7b299d6fef28f9a399592abe4a36ce209",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "readme-banner-es-dark.png",
       "theme": "dark",
       "width": 1280,
       "height": 340,
-      "bytes": 33680,
-      "sha256": "ea828da54b9d34fffa567352a1aa8eecb98c34213f0f630cb3a9e99b74b10993",
+      "bytes": 34609,
+      "sha256": "d7290888731c6016921096fab7616b07f84f4f97883c7d0f96265be86c847f2c",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "readme-banner-zh-light.png",
       "theme": "light",
       "width": 1280,
       "height": 340,
-      "bytes": 33758,
-      "sha256": "8bf0c293d8407fb16235c84a47a513b687bd3f1f38bb6a78b75ede103b92507d",
+      "bytes": 35673,
+      "sha256": "acb6d61b76545ad4be88fbe688b19d68ebe8816d5a7fe0c9a140ddb4f1685013",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "readme-banner-zh-dark.png",
       "theme": "dark",
       "width": 1280,
       "height": 340,
-      "bytes": 34963,
-      "sha256": "542122e0acd8ae8a2180f6a161ec8a3dccc084b84acef6a7531515a5b26f6998",
+      "bytes": 37113,
+      "sha256": "0afcf5e5dfce6d3e6dd3cbc2c13aae62315aa974374f832fc3a2c9e5783c003a",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "how-it-works-light.png",
       "theme": "light",
       "width": 1280,
-      "height": 708,
-      "bytes": 63372,
-      "sha256": "31820be9d193c0da9d652e5058d92b7a7f5f36e6ffaed92a7fdaff34c5f28ec6",
+      "height": 743,
+      "bytes": 66352,
+      "sha256": "196b980dd6a09510192b95073ff16ee46a99351e34df78e0c6115f7db061b2be",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "how-it-works-dark.png",
       "theme": "dark",
       "width": 1280,
-      "height": 708,
-      "bytes": 65206,
-      "sha256": "9e2e943d8100e0aa19511f184e5e78a639f15913be7f5025e75641f5cca2e6ef",
+      "height": 743,
+      "bytes": 68210,
+      "sha256": "8f7674ac0825ccc90eee1cb5af9b7997d5767e2e48ebadd5851e96a5da7cf75c",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "how-it-works-es-light.png",
       "theme": "light",
       "width": 1280,
-      "height": 708,
-      "bytes": 64486,
-      "sha256": "57470a69a6a48701d890bb764747cc232a705e6eef0a6374b3b0b2e27850655f",
+      "height": 743,
+      "bytes": 67439,
+      "sha256": "6c837d76900f832a9c905aa7f1a0ad698f6ba77fdb2daa7ecd523180f2cdfbc3",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "how-it-works-es-dark.png",
       "theme": "dark",
       "width": 1280,
-      "height": 708,
-      "bytes": 66511,
-      "sha256": "45a7a0bc293e63ca426a38be4207c23938065d4f461f51debc2feef677b2ffec",
+      "height": 743,
+      "bytes": 69495,
+      "sha256": "dd347ea2997bd7f0fc414c5aa2566df13537df862a95fbe49500e44ce2bd0520",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "how-it-works-zh-light.png",
       "theme": "light",
       "width": 1280,
-      "height": 659,
-      "bytes": 53045,
-      "sha256": "feb918e4af05321b354df568d9a2ad16a1025c6b3d9c5b234d5fa1c3508b9ea7",
+      "height": 694,
+      "bytes": 56047,
+      "sha256": "569270eeeff5317de725fced98b463feccabf645318bd8d9e48ec7c27e69480d",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "how-it-works-zh-dark.png",
       "theme": "dark",
       "width": 1280,
-      "height": 659,
-      "bytes": 53220,
-      "sha256": "39f1e592fa57bc81be09a6768c4af8fd2473b941a6f32426ddb495f2d7230ea3",
+      "height": 694,
+      "bytes": 56271,
+      "sha256": "c20718d3c28016cfe63347ff44b5c5e234c72c12809d11c4873fa047f25df65f",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "real-answer-light.png",
       "theme": "light",
       "width": 1280,
-      "height": 1070,
-      "bytes": 114657,
-      "sha256": "49f5f5d2f5a4e650c17b878ee61f724c03d9dea489b661ffc336e99bcc0294a4",
+      "height": 1105,
+      "bytes": 117717,
+      "sha256": "3ab2285b5eee7b5fa625a8f43bcf9a9992ec3aeca3a943254c757707f63ebb27",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "real-answer-dark.png",
       "theme": "dark",
       "width": 1280,
-      "height": 1070,
-      "bytes": 115697,
-      "sha256": "bf031facc1dd8f0edcde6f992325b7fcbfc8f9b5a0cf0159eb9226312f3ba81e",
+      "height": 1105,
+      "bytes": 118827,
+      "sha256": "e308d5e082ac3f5b4f5aab193ed014a446daef0f47dff70c0bff2ac9776857f2",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "real-answer-es-light.png",
       "theme": "light",
       "width": 1280,
-      "height": 1372,
-      "bytes": 125079,
-      "sha256": "c09349dfc97ab7707fb32fd30c328f841421df4f377d3ee33588d7e4c5847c2a",
+      "height": 1407,
+      "bytes": 128090,
+      "sha256": "fe48f1ece424dd56c76f7b781f3d1238866d939a1cb6d683fe14a3d5281b06ac",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "real-answer-es-dark.png",
       "theme": "dark",
       "width": 1280,
-      "height": 1372,
-      "bytes": 126381,
-      "sha256": "75a69e23ca86e58ab5bd8c7f01565f7db82b7998cdc84cf00918cf25ea806b91",
+      "height": 1407,
+      "bytes": 129419,
+      "sha256": "63c75f3ad10bcbec3912f7be11f85a5bf9b519959884527250be3589a69e7b93",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "real-answer-zh-light.png",
       "theme": "light",
       "width": 1280,
-      "height": 1072,
-      "bytes": 111953,
-      "sha256": "743f4179fe714820896608a16d7ff233e748a1f154cfe6f2c5482c554860053a",
+      "height": 1107,
+      "bytes": 114870,
+      "sha256": "2df437bb9f62e10f910671ae70de2a3c03f7510e47c940c38993cec6fef27845",
       "font": true,
       "failedImages": 0,
       "overflow": [],
       "externalRequests": 0
     },
     {
+      "brands": {
+        "brands": [
+          "deepseek"
+        ],
+        "count": 1,
+        "missing": [],
+        "duplicateIds": [],
+        "brokenReferences": [],
+        "collapsedPaint": [],
+        "invalid": []
+      },
       "file": "real-answer-zh-dark.png",
       "theme": "dark",
       "width": 1280,
-      "height": 1072,
-      "bytes": 112762,
-      "sha256": "6758f5ba4bcc30aca9bbbe683a8153b1cb1b7faa2613ed9590c64bbcffb8da72",
+      "height": 1107,
+      "bytes": 115799,
+      "sha256": "d8b3689fa2558f8f43bbbb20f6318a0f23a479575c7cb45eddcabc9472219adc",
       "font": true,
       "failedImages": 0,
       "overflow": [],

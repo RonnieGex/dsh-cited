@@ -14,7 +14,7 @@ jobs:
       - name: Install declared development dependencies without scripts or lockfile changes
         run: npm install --ignore-scripts --package-lock=false
       - name: Test portable contracts
-        run: node --test tests/cited.test.mjs tests/module.test.mjs tests/package.test.mjs tests/tools.test.mjs tests/readme.test.mjs
+        run: node --test tests/cited.test.mjs tests/module.test.mjs tests/package.test.mjs tests/tools.test.mjs tests/readme.test.mjs tests/brand-logos.test.mjs
       - name: Check shipped build
         run: node scripts/build.mjs --check
   secrets:

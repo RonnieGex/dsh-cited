@@ -1,3 +1,5 @@
+import { auditBrandLogos } from "./readme-graphics/audit-brand-logos.mjs"
+import { logo, brandText } from "./readme-graphics/brand-logos.mjs"
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
@@ -41,7 +43,8 @@ try {
     for (const theme of ['light', 'dark']) {
       const dark = theme === 'dark'
       const flame = (await readFile(join(root, `docs/brand/katalis-flame${dark ? '' : '-ink'}-192.png`))).toString('base64')
-      const values = { ...copy[lang], EVIDENCEPATH: `docs/evidence/headless-answer${lang === 'es' ? '' : '-en'}.txt`, EXCHANGELABEL: copy[lang].EXCHANGELABEL.replace('cited_ask', exchange.call.tool), TOOLS: [...new Set(record.events.filter((e) => e.type === 'tool_call').map((e) => e.tool.toUpperCase()))].join(' + '), LANG: lang, KIND: name, TITLE: name, FONT: font, PAPER: dark ? '#171717' : '#FAFAF9', INK: dark ? '#FAFAF9' : '#171717', MUTED: dark ? '#B8B8B4' : '#555551', LINE: dark ? '#50504C' : '#CDCDC7', FLAME: flame, VERSION: escape(record.harnessVersion), DATE: record.capturedAt.slice(0, 10), TRANSCRIPT: escape(displayTranscriptOf(record)).replace(/((?:Tool result|Passages)\n)([\s\S]*?)(\n\nAnswer\n)/, (_, label, result, end) => label + result.replace(escape(exchange.sourceLine), escape(exchange.sourceLine).replace(/^1\./, '<span class="mark citation-chip source-chip">1</span>')).replace(escape(contract.highlight), `<span class="mark source-passage">${escape(contract.highlight)}</span>`) + end).replace(/^(Question|Tool call|Tool result|Passages|Answer)$/gm, '<span class="label">$1</span>').replace(/\[1\]/g, '<span class="mark citation-chip">1</span>') }
+      const brandedCopy = Object.fromEntries(Object.entries(copy[lang]).map(([key, value]) => [key, brandText(value)]))
+      const values = { ...brandedCopy, DEEPSEEK: logo("deepseek"), EVIDENCEPATH: `docs/evidence/headless-answer${lang === 'es' ? '' : '-en'}.txt`, EXCHANGELABEL: copy[lang].EXCHANGELABEL.replace('cited_ask', exchange.call.tool), TOOLS: [...new Set(record.events.filter((e) => e.type === 'tool_call').map((e) => e.tool.toUpperCase()))].join(' + '), LANG: lang, KIND: name, TITLE: name, FONT: font, PAPER: dark ? '#171717' : '#FAFAF9', INK: dark ? '#FAFAF9' : '#171717', MUTED: dark ? '#B8B8B4' : '#555551', LINE: dark ? '#50504C' : '#CDCDC7', FLAME: flame, VERSION: escape(record.harnessVersion), DATE: record.capturedAt.slice(0, 10), TRANSCRIPT: escape(displayTranscriptOf(record)).replace(/((?:Tool result|Passages)\n)([\s\S]*?)(\n\nAnswer\n)/, (_, label, result, end) => label + result.replace(escape(exchange.sourceLine), escape(exchange.sourceLine).replace(/^1\./, '<span class="mark citation-chip source-chip">1</span>')).replace(escape(contract.highlight), `<span class="mark source-passage">${escape(contract.highlight)}</span>`) + end).replace(/^(Question|Tool call|Tool result|Passages|Answer)$/gm, '<span class="label">$1</span>').replace(/\[1\]/g, '<span class="mark citation-chip">1</span>') }
       const content = fill(await read(`scripts/readme-graphics/${template}.html`), values)
       const page = await browser.newPage({ viewport: { width: 1280, height: 1 }, deviceScaleFactor: 1, colorScheme: theme, reducedMotion: 'reduce' })
       const requests = []
@@ -61,6 +64,7 @@ try {
         }, contract.document)
         if (displayed !== displayTranscriptOf(record).replace(/\[1\]/g, '1')) throw new Error('Displayed evidence text changed')
       }
+      const brands = await auditBrandLogos(page, ["deepseek"])
       const audit = await page.evaluate(() => ({
         font: document.fonts.check('600 52px Outfit'), height: document.documentElement.scrollHeight,
         failedImages: [...document.images].filter((image) => !image.complete || image.naturalWidth === 0).length,
@@ -72,7 +76,7 @@ try {
       if (!audit.font || audit.failedImages || audit.overflow.length || requests.length) throw new Error(`${name}/${theme}: ${JSON.stringify({ ...audit, requests })}`)
       const filename = `${name}${lang === 'en' ? '' : `-${lang}`}-${theme}.png`
       const png = await page.screenshot({ path: join(root, 'docs/images', filename), fullPage: true, animations: 'disabled' })
-      outputs.push({ file: filename, theme, width: 1280, height: audit.height, bytes: png.length, sha256: createHash('sha256').update(png).digest('hex'), ...audit, externalRequests: requests.length })
+      outputs.push({ brands, file: filename, theme, width: 1280, height: audit.height, bytes: png.length, sha256: createHash('sha256').update(png).digest('hex'), ...audit, externalRequests: requests.length })
       await page.close()
       console.log(`RENDER: ${filename} 1280x${audit.height}; Outfit loaded; no overflow; no external requests`)
     }

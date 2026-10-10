@@ -1,0 +1,5 @@
+$ curl.exe --fail --silent --show-error --output NUL --write-out %{http_code} %{content_type} %{size_download} http://127.0.0.1:4179/brand/logos/deepseek.svg
+exit 0; 200 image/svg+xml 2086
+
+$ curl.exe --fail --silent --show-error --output NUL --write-out %{http_code} %{content_type} %{size_download} http://127.0.0.1:4179/images/readme-banner-dark.png
+exit 0; 200 image/png 32601
