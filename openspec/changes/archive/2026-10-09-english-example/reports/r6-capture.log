@@ -1,0 +1,6 @@
+CURL: authenticated 200, unauthenticated 401
+CAPTURE 1: supported guarantee answer; complete attempt saved
+CAPTURE 2: supported guarantee answer; complete attempt saved
+CAPTURE 3: supported guarantee answer; complete attempt saved
+CAPTURE: 3/3 supported answers; canonical natural-en-2026-10-09T21-56-48-866Z/attempt-1.json
+Isolated capture server stopped

@@ -1,0 +1,102 @@
+
+> dsh-cited@0.1.0 test
+> node --test "tests/**/*.test.mjs"
+
+▶ the address of the installation
+  ✔ appends /api/mcp to the base address, with or without a trailing slash (2.6653ms)
+  ✔ keeps an address that already names the endpoint (0.8522ms)
+  ✔ keeps the path prefix of a reverse proxy (0.3989ms)
+  ✔ refuses an empty address, naming the field to set (5.5924ms)
+  ✔ refuses a relative address and a scheme that is not http (1.2484ms)
+✔ the address of the installation (17.0685ms)
+▶ the token and the other settings
+  ✔ refuses an empty token, naming the field to set (0.6321ms)
+  ✔ fills the timeout with 30 seconds when the configuration has none (0.3135ms)
+  ✔ reads a whole configuration, keeping unknown and missing fields out (2.0455ms)
+  ✔ accepts a limit between 1 and 8 and refuses everything else (0.8707ms)
+✔ the token and the other settings (5.1025ms)
+▶ one tools/call against a Cited installation
+  ✔ sends the bearer, the JSON-RPC message and the protocol version of the transport (187.0599ms)
+  ✔ carries the answered question with its citations (28.4444ms)
+  ✔ turns a tool error of Cited into a clear message (15.0613ms)
+  ✔ turns a JSON-RPC error of Cited into a clear message (22.6888ms)
+  ✔ names a rejected bearer, a refused request and a missing endpoint (38.9176ms)
+  ✔ names a body that is not JSON and a server failure (19.9963ms)
+  ✔ gives up after the configured timeout (265.8531ms)
+  ✔ names an installation it cannot reach (6.2279ms)
+  ✔ stops when the caller cancels the call (5.8753ms)
+✔ one tools/call against a Cited installation (591.6693ms)
+▶ the token never leaves the plugin
+  ✔ keeps the configured token out of every failure of the transport (37.7498ms)
+  ✔ keeps the token out of the message of a real endpoint that answers 401 (6.1463ms)
+✔ the token never leaves the plugin (44.4003ms)
+▶ the plugin loaded by the real DeepSeek Harness composition
+  ✔ registers the two tools of Cited on the registry of the composition (4.1303ms)
+  ✔ runs cited_search through the registry and returns the passages of Cited (52.2554ms)
+  ✔ runs cited_ask through the registry and returns the citations (14.7688ms)
+  ✔ answers a failure of the transport as a tool error, not as a crash (14.9502ms)
+  ✔ turns an invalid call into a tool error of the registry (2.8951ms)
+✔ the plugin loaded by the real DeepSeek Harness composition (1497.1799ms)
+▶ the module DeepSeek Harness loads
+  ✔ exports the function-plugin form: name, inject, Config and apply (5.0696ms)
+  ✔ starts unconfigured instead of failing to load (1.5428ms)
+  ✔ marks the token as a secret (0.4337ms)
+  ✔ refuses a timeout that is not a positive number (1.2394ms)
+  ✔ registers exactly the two tools of Cited (6.4045ms)
+✔ the module DeepSeek Harness loads (17.7276ms)
+▶ the package DeepSeek Harness installs from the repository
+  ✔ declares the bundle patch, the entry point and the locale files (40.6719ms)
+  ✔ declares the host packages as peers and as development dependencies (30.7094ms)
+  ✔ ships the compiled plugin, not only its sources (3.2116ms)
+  ✔ publishes every path the manifest declares, and none of the sources (16.5635ms)
+  ✔ inserts one row whose id differs from the package name (7.2974ms)
+  ✔ carries the card of the plugin in English, Chinese and Spanish (37.2491ms)
+  ✔ keeps the license and the notice of Katalis (2.3507ms)
+  ✔ documents the installation in the README, in English and in Spanish (2.7604ms)
+✔ the package DeepSeek Harness installs from the repository (146.052ms)
+✔ the peer range of dsh-tools accepts the 0.2 release candidates of the desktop app (3.0608ms)
+✔ English guarantee evidence requires a supported source in the selected exchange (10.6207ms)
+✔ English guarantee validation rejects refusals and unrelated durations in either answer (33.862ms)
+✔ English recorded outcomes remain reproducible beside unchanged Spanish evidence (28.2494ms)
+✔ source chip presentation does not retain the raw list period (3.1177ms)
+✔ round four presents one source in the tool result and one closing provenance paragraph (39.6526ms)
+✔ malformed capture events retain valid evidence and cannot become canonical (3.435ms)
+✔ current evidence selects one own-source exchange while preserving all raw calls (12.5904ms)
+✔ canonical selection prefers an ask with its own numbered price passage (1.3454ms)
+✔ evidence rejects invented, failed, unmatched and truncated tool results (1.2451ms)
+✔ all translations resolve local assets and carry the complete contracts (126.9262ms)
+✔ round-two documentation leads with verified installation and actionable configuration (4.9085ms)
+✔ published transcript is derived from successful saved model events (2.4754ms)
+▶ cited_search
+  ✔ declares the name, the query, the optional limit and the timeout of the configuration (7.8005ms)
+  ✔ returns the passages of Cited as they arrive, with the numbered text for the model (130.4612ms)
+  ✔ asks for the default of five passages and for the limit it was given (31.827ms)
+  ✔ says the documents hold no match instead of inventing one (2.2216ms)
+  ✔ refuses an empty query and a limit outside 1 to 8 (2.296ms)
+  ✔ refuses arguments the model cannot satisfy (2.0042ms)
+✔ cited_search (179.8356ms)
+▶ cited_ask
+  ✔ declares the question, the optional session and the timeout of the configuration (1.5224ms)
+  ✔ returns the answer with its citations and renders them as sources (18.4176ms)
+  ✔ renders every exact excerpt in order, including missing headings and multiline text (1.3765ms)
+  ✔ carries the honest refusal, without citations (17.7404ms)
+  ✔ rejects missing required citation fields without fabricating an excerpt (64.2287ms)
+  ✔ sends the sessionId only when the model gave one (12.9919ms)
+  ✔ refuses an empty question (1.5843ms)
+✔ cited_ask (119.1103ms)
+▶ an installation that is not configured yet
+  ✔ tells the user which field is missing, without breaking the call (1.8986ms)
+  ✔ names the token field when the address is set and the token is not (0.9207ms)
+✔ an installation that is not configured yet (3.1975ms)
+▶ the token never reaches a result
+  ✔ keeps the token out of cited_ask values and rendered answers, including refusal (20.2335ms)
+  ✔ keeps the token out of the passages and out of a failure (47.5468ms)
+✔ the token never reaches a result (68.2892ms)
+ℹ tests 68
+ℹ suites 11
+ℹ pass 68
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1897.6483

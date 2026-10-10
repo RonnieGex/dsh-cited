@@ -1,0 +1,30 @@
+✖ English guarantee validation rejects refusals and unrelated durations in either answer (78.96ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 879.3136
+
+✖ failing tests:
+
+test at tests\readme.test.mjs:32:1
+✖ English guarantee validation rejects refusals and unrelated durations in either answer (78.96ms)
+  AssertionError [ERR_ASSERTION]: final: I cannot confirm the repair guarantee [1].
+  
+  Source: Every repair carries a 90 day guarantee on the work.
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///<workspace>/Documents/katalis-dev/dsh-cited/tests/readme.test.mjs:42:14)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,6 @@
+{
+  "command": "node <user>/AppData/Roaming/npm/node_modules/@fission-ai/openspec/bin/openspec.js validate --all --strict",
+  "node": "v24.21.0",
+  "exitCode": 0,
+  "output": "- Validating...\n✓ spec/agent-evidence-r3\n✓ spec/agent-presentation-r4\n✓ spec/ask-citation-excerpts\n✓ change/english-example\n✓ spec/professional-readme\nTotals: 5 passed, 0 failed (5 items)\n"
+}

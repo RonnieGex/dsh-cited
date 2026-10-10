@@ -37,11 +37,11 @@ Cited hosts documents and retrieval. DeepSeek Harness hosts the agent and this p
 
 ## A real answer
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-dark.png"><img src="docs/images/real-answer-light.png" alt="Natural Spanish question: DeepSeek calls cited_ask; Cited returns 380 pesos [1] and its own source passage from cafe-la-horquilla.md, Precios, position 2." width="1280"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="docs/images/real-answer-dark.png"><img src="docs/images/real-answer-light.png" alt="Natural English question: DeepSeek calls cited_ask and answers with a 90-day repair guarantee [1] and its own passage from bike-workshop-policies.md, Guarantee, position 4." width="1280"></picture>
 
-> La afinación de bicicleta en Café La Horquilla cuesta **380 pesos** [1].
+> Yes. Every repair carries a **90-day guarantee on the work**, and parts carry the guarantee of their maker [1].
 
-**2 of 3 natural questions were answered with a supported price citation**, using keyword search without embeddings; the English question missed the Spanish passage and Cited refused. Recorded on 2026-10-09 with a locally built plugin in temporary headless state. The image shows one selected `cited_ask` exchange and the complete Spanish answer, with its source highlighted inside the tool result. Terminal Markdown stays raw. The [transcript](docs/evidence/headless-answer.txt) preserves every call; [all outcomes](docs/evidence/natural-summary.json) and [verification details](docs/evidence/compatibility.md) record the limits, models and database hashes.
+**3 of 3 English questions received a supported guarantee citation** from an English document. The earlier batch behind the Spanish example scored **2 of 3**: its two Spanish questions succeeded, while its English question missed the Spanish price passage. Keyword search without embeddings can miss a Spanish passage when asked in English. Recorded on 2026-10-09 with the plugin installed from GitHub main in temporary headless state. The image shows the selected `cited_ask` exchange and the complete English answer, with its own source highlighted inside TOOL RESULT. Terminal Markdown stays raw. The [English transcript](docs/evidence/headless-answer-en.txt), [English outcomes](docs/evidence/natural-summary-en.json), [Spanish-example outcomes](docs/evidence/natural-summary.json) and [verification details](docs/evidence/compatibility.md) preserve the evidence and limits.
 
 ## Install
 
@@ -108,7 +108,7 @@ A range is not proof of every version. MCP clients below connect directly to **C
 
 | Client | Date | Evidence and limit |
 |---|---|---|
-| DeepSeek Harness 0.1.6-alpha.2, source CLI | 2026-10-09 | Local built-plugin install and real DeepSeek `cited_ask` answer in isolated headless state; earlier GitHub installation is recorded in the provenance. [Record](docs/evidence/headless-answer.json); [gate](evidence/gate.txt). |
+| DeepSeek Harness 0.1.6-alpha.2 | 2026-10-09 | GitHub main plugin installation and three supported English guarantee answers in isolated headless state. [Record](docs/evidence/headless-answer-en.json); [gate](evidence/gate.txt). |
 | DeepSeek Harness 0.2.0-rc.2, bundled CLI | 2026-10-09 | Installed and answered in a local run on 2026-10-09; raw log not kept in this repository. [Provenance](docs/evidence/compatibility.md). |
 | Claude Code → Cited MCP | 2026-10-09 | Prior verification: connected and listed both tools. No model tool call claimed. [Provenance](docs/evidence/compatibility.md). |
 | Codex → Cited MCP | 2026-10-09 | Prior verification: connected and listed both tools. No model tool call claimed. [Provenance](docs/evidence/compatibility.md). |

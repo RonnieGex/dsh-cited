@@ -26,9 +26,11 @@ Keep source and packaged `lib/` synchronized. Update all three READMEs whenever 
 
 ## README evidence
 
-The current runtime includes exact citation excerpts. Run the round-three capture wrapper documented in [readme-assets.md](readme-assets.md) only when a new model batch is authorized. Saved evidence is rendered offline into 18 localized graphics. `natural-summary.json` separates a supported price answer from a refusal that happens to contain citations. The current result is 2/3, with both Spanish questions supported and the English question refused. Canonical evidence has its own ask passage; downloads retain additional same-run search calls. The token section describes conversation persistence only with sessionId.
+The current runtime includes exact citation excerpts. Use `scripts/capture-english-evidence.mjs` only for an authorized new English batch; [readme-assets.md](readme-assets.md) documents its isolated port 3246, temporary headless home, GitHub main installation and three fixed natural questions. English evidence has the `-en` suffix and never replaces the Spanish evidence. English/Chinese graphics select English; Spanish graphics select Spanish. Rendering 18 images is offline.
 
-Harness uses deepseek-official/deepseek-v4-flash; the isolated Cited server uses deepseek/deepseek-v4-flash. The recorded plugin hash identifies the local built checkout. Fable merges plugin PR #1 before Cited PR #18 so concrete main-branch evidence links resolve. No production deployment belongs to these commands.
+`natural-summary-en.json` records 3/3 English guarantee answers. `natural-summary.json` preserves the historical Spanish-example batch's 2/3, including its English failure. The validator rejects unrelated citations, refusals and unrelated durations, and chooses a supported callId before displaying that exchange. Raw downloads preserve every event and original model punctuation. Keyword-only search can still miss a Spanish passage asked about in English.
+
+Harness uses deepseek-official/deepseek-v4-flash; the isolated Cited server uses deepseek/deepseek-v4-flash. The English record identifies the GitHub main commit and matching installed runtime SHA-256. Merge the English-example plugin PR before its Cited consumer PR and landing publication. No production deployment belongs to these commands. API/data model and runtime source remain unchanged.
 
 ## Round-four maintenance
 
