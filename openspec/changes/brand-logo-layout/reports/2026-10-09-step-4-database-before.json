@@ -1,0 +1,4 @@
+{
+  "scope": "Local test databases only; read-only SQLite, no initialization",
+  "files": []
+}

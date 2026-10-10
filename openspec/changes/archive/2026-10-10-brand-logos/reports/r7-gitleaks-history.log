@@ -1,0 +1,9 @@
+gitleaks : 7:12PM INF 22 commits scanned.
+En línea: 2 Carácter: 227
++ ... TEXITCODE"; gitleaks git --redact --no-banner *> openspec/changes/bra ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (7:12PM INF 22 commits scanned.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+7:12PM INF scanned ~1223525 bytes (1.22 MB) in 576ms
+7:12PM INF no leaks found

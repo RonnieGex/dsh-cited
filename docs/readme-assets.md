@@ -56,3 +56,11 @@ Under Node 24.21.0, `CITED_REPO=<built-public-sample-checkout> node scripts/capt
 Run `CITED_REPO=<checkout-with-Playwright> node scripts/render-readme-graphics.mjs` to reproduce 18 localized/theme assets offline. `real-answer-{light,dark}.png` and `real-answer-zh-{light,dark}.png` use English, while `real-answer-es-{light,dark}.png` retains Spanish. The footer path selects the same language's raw transcript. The matched tool result owns its numbered source and highlighted sentence. Raw model punctuation is preserved; authored copy contains no em dashes. The renderer checks complete displayed transcript equality, local fonts, no clipping and no external requests.
 
 Runtime code, shipped lib, API and database contracts are unchanged. The English-example plugin PR precedes the consumer Cited PR and landing publication. Earlier sections above describe historical capture rounds.
+
+## Official brand marks
+
+Round seven uses vendored official marks beside authored product names and keeps compatibility status as separate text. See [brand sources and maintenance](brand-logos.md). The renderer preserves full SVG geometry and audits visible brand coverage. Runtime, API, data model and saved evidence contracts are unchanged.
+
+```sh
+CITED_REPO=../community-brand-logos node scripts/render-readme-graphics.mjs
+```

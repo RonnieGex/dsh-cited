@@ -37,3 +37,11 @@ Harness uses deepseek-official/deepseek-v4-flash; the isolated Cited server uses
 Keep source highlighting inside TOOL RESULT and preserve raw transcripts. Each README uses one answer line and one closing provenance paragraph. Keep the merged compatibility limits and distinguish unsupported agent marks [1] through [5] from the citations returned by Cited. `node --test tests/tools.test.mjs` checks that cited_ask values and rendered answers/refusals contain no configured secret. Runtime and shipped lib hashes remain unchanged.
 
 Round-five source-chip presentation omits the raw list period after chip 1. Run `node scripts/render-readme-graphics.mjs` with `CITED_REPO=../community-readme` under Node 24.21.0; exact transcript comparison restores the chip punctuation only for validation. Do not edit the raw evidence to match the visual formatting.
+
+## Official brand marks
+
+Round seven uses vendored official marks beside authored product names and keeps compatibility status as separate text. See [brand sources and maintenance](brand-logos.md). The renderer preserves full SVG geometry and audits visible brand coverage. Runtime, API, data model and saved evidence contracts are unchanged.
+
+```sh
+CITED_REPO=../community-brand-logos node scripts/render-readme-graphics.mjs
+```
