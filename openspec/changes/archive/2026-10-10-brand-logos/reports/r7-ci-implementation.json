@@ -1,0 +1,22 @@
+[
+  {
+    "link": "https://github.com/RonnieGex/dsh-cited/actions/runs/38012527477/job/114095488915",
+    "name": "Portable tests and build",
+    "state": "SUCCESS"
+  },
+  {
+    "link": "https://github.com/RonnieGex/dsh-cited/actions/runs/38012527477/job/114095488830",
+    "name": "Secret scan",
+    "state": "SUCCESS"
+  },
+  {
+    "link": "https://github.com/RonnieGex/dsh-cited/actions/runs/38012517284/job/114095455996",
+    "name": "Portable tests and build",
+    "state": "SUCCESS"
+  },
+  {
+    "link": "https://github.com/RonnieGex/dsh-cited/actions/runs/38012517284/job/114095455873",
+    "name": "Secret scan",
+    "state": "SUCCESS"
+  }
+]
