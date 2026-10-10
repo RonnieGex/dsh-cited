@@ -23,3 +23,7 @@ CITED_REPO=../community-brand-logos node scripts/render-readme-graphics.mjs
 ```
 
 Browser audits check every authored visible brand occurrence, expected mark inventory, readable SVG dimensions, distinct paints and unique local definition references. Source tests compare original geometry and pinned file hashes. Keep updated provenance and run the relevant unit/build/browser checks after changing marks. API contracts, runtime behavior, data models and canonical evidence are unchanged.
+
+## Round eight composition
+
+Banner spacing is measured against the visible artwork, including the transparent right inset of the Katalis flame. The shared 8 px CSS gap plus an 8 px optical correction on the DeepSeek mark matches the signature within 1 px in both themes. The renderer measures flame alpha bounds and SVG geometry for EN/ES/ZH. Asset bytes, canonical evidence, API and data models are unchanged.

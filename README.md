@@ -146,3 +146,7 @@ Rendering uses saved evidence offline. A new capture uses a real model and API k
 [Apache-2.0](LICENSE). Keep [NOTICE](NOTICE) in redistributions. Outfit uses the [SIL Open Font License](docs/fonts/outfit/OFL.txt). See [asset provenance](docs/readme-assets.md).
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/brand/katalis-flame-192.png"><img src="docs/brand/katalis-flame-ink-192.png" alt="Katalis" height="48"></picture> <a href="https://katalis.dev">Built by Katalis</a></p>
+
+## Round eight composition
+
+Banner spacing is measured against the visible artwork, including the transparent right inset of the Katalis flame. The shared 8 px CSS gap plus an 8 px optical correction on the DeepSeek mark matches the signature within 1 px in both themes. The renderer measures flame alpha bounds and SVG geometry for EN/ES/ZH. Asset bytes, canonical evidence, API and data models are unchanged.

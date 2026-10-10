@@ -3,6 +3,11 @@ import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { test } from "node:test";
 const read = (file) => readFileSync(new URL('../' + file, import.meta.url), "utf8");
+test("banner brand pair uses the same spacing token as the Katalis signature", () => {
+  const html = read("scripts/readme-graphics/base.html");
+  assert.match(html, /\.brand\{[^}]*gap:var\(--brand-gap\)/);
+  assert.match(html, /\.banner \.brand-name\{[^}]*gap:var\(--brand-gap\)/);
+});
 test("brand assets retain published geometry and accessible presentation", async () => {
   const { logo, brandText } = await import('../scripts/readme-graphics/brand-logos.mjs');
   const manifest = JSON.parse(read('docs/brand/logos/' + "sources.json"));

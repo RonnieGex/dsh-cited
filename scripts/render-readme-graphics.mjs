@@ -65,6 +65,28 @@ try {
         if (displayed !== displayTranscriptOf(record).replace(/\[1\]/g, '1')) throw new Error('Displayed evidence text changed')
       }
       const brands = await auditBrandLogos(page, ["deepseek"])
+      if (name === 'readme-banner') {
+        brands.opticalSpacing = await page.evaluate(() => {
+          const flame = document.querySelector('.brand img')
+          const canvas = document.createElement('canvas')
+          canvas.width = flame.naturalWidth
+          canvas.height = flame.naturalHeight
+          const context = canvas.getContext('2d')
+          context.drawImage(flame, 0, 0)
+          const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data
+          let right = 0
+          for (let y = 0; y < canvas.height; y++) for (let x = 0; x < canvas.width; x++) if (pixels[(y * canvas.width + x) * 4 + 3]) right = Math.max(right, x + 1)
+          const flameBox = flame.getBoundingClientRect()
+          const signatureGap = document.querySelector('.brand span').getBoundingClientRect().left - (flameBox.left + right * flameBox.width / canvas.width)
+          const mark = document.querySelector('.banner .brand-logo')
+          const markBox = mark.getBoundingClientRect()
+          const shape = mark.getBBox()
+          const markRight = markBox.left + (shape.x + shape.width) * markBox.width / mark.viewBox.baseVal.width
+          const harnessGap = document.querySelector('.banner .brand-name > span').getBoundingClientRect().left - markRight
+          return { signatureGap, harnessGap, difference: Math.abs(signatureGap - harnessGap) }
+        })
+        if (brands.opticalSpacing.difference > 1) throw new Error(`Banner optical spacing differs: ${JSON.stringify(brands.opticalSpacing)}`)
+      }
       const audit = await page.evaluate(() => ({
         font: document.fonts.check('600 52px Outfit'), height: document.documentElement.scrollHeight,
         failedImages: [...document.images].filter((image) => !image.complete || image.naturalWidth === 0).length,

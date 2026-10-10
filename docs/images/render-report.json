@@ -14,14 +14,19 @@
         "duplicateIds": [],
         "brokenReferences": [],
         "collapsedPaint": [],
-        "invalid": []
+        "invalid": [],
+        "opticalSpacing": {
+          "signatureGap": 15.5,
+          "harnessGap": 15.999051201778144,
+          "difference": 0.4990512017781441
+        }
       },
       "file": "readme-banner-light.png",
       "theme": "light",
       "width": 1280,
       "height": 340,
-      "bytes": 31371,
-      "sha256": "640795a12bd305f5e7d1832754d96f44e1cbbb975aa046417fb41ecc88ce3679",
+      "bytes": 31859,
+      "sha256": "b93fc6b32555850d8d054bb8bf5f1a6e6549f2b6ac78e4ad027736fa9f224273",
       "font": true,
       "failedImages": 0,
       "overflow": [],
@@ -37,14 +42,19 @@
         "duplicateIds": [],
         "brokenReferences": [],
         "collapsedPaint": [],
-        "invalid": []
+        "invalid": [],
+        "opticalSpacing": {
+          "signatureGap": 16,
+          "harnessGap": 15.999051201778144,
+          "difference": 0.0009487982218558955
+        }
       },
       "file": "readme-banner-dark.png",
       "theme": "dark",
       "width": 1280,
       "height": 340,
-      "bytes": 32601,
-      "sha256": "9545acb3cb4aff7831f61fe223682123f89c3420116e32c94684455572b9205a",
+      "bytes": 33189,
+      "sha256": "bdce3c0ab87b8c2d13c6fd6cda98d81576267ed4ae5bb689762e6ad3207fdc4f",
       "font": true,
       "failedImages": 0,
       "overflow": [],
@@ -60,14 +70,19 @@
         "duplicateIds": [],
         "brokenReferences": [],
         "collapsedPaint": [],
-        "invalid": []
+        "invalid": [],
+        "opticalSpacing": {
+          "signatureGap": 15.5,
+          "harnessGap": 15.999051201778144,
+          "difference": 0.4990512017781441
+        }
       },
       "file": "readme-banner-es-light.png",
       "theme": "light",
       "width": 1280,
       "height": 340,
-      "bytes": 33280,
-      "sha256": "60ab9fdbbd6fd95cc965073205fc02d7b299d6fef28f9a399592abe4a36ce209",
+      "bytes": 33767,
+      "sha256": "6eade820930e8d45c136fd111f63054ec3a8b71629ca88a7ea1c915ecf07b7d0",
       "font": true,
       "failedImages": 0,
       "overflow": [],
@@ -83,14 +98,19 @@
         "duplicateIds": [],
         "brokenReferences": [],
         "collapsedPaint": [],
-        "invalid": []
+        "invalid": [],
+        "opticalSpacing": {
+          "signatureGap": 16,
+          "harnessGap": 15.999051201778144,
+          "difference": 0.0009487982218558955
+        }
       },
       "file": "readme-banner-es-dark.png",
       "theme": "dark",
       "width": 1280,
       "height": 340,
-      "bytes": 34609,
-      "sha256": "d7290888731c6016921096fab7616b07f84f4f97883c7d0f96265be86c847f2c",
+      "bytes": 35190,
+      "sha256": "8e70fa02d58c43d48b8b398150b25cd262d81e2057c3309f4861833c31bc5d83",
       "font": true,
       "failedImages": 0,
       "overflow": [],
@@ -106,14 +126,19 @@
         "duplicateIds": [],
         "brokenReferences": [],
         "collapsedPaint": [],
-        "invalid": []
+        "invalid": [],
+        "opticalSpacing": {
+          "signatureGap": 15.5,
+          "harnessGap": 15.999051201778144,
+          "difference": 0.4990512017781441
+        }
       },
       "file": "readme-banner-zh-light.png",
       "theme": "light",
       "width": 1280,
       "height": 340,
-      "bytes": 35673,
-      "sha256": "acb6d61b76545ad4be88fbe688b19d68ebe8816d5a7fe0c9a140ddb4f1685013",
+      "bytes": 35891,
+      "sha256": "adec404542519255c9d9ec338015a3f3d002cd879b26db2281f315e943cb74ec",
       "font": true,
       "failedImages": 0,
       "overflow": [],
@@ -129,14 +154,19 @@
         "duplicateIds": [],
         "brokenReferences": [],
         "collapsedPaint": [],
-        "invalid": []
+        "invalid": [],
+        "opticalSpacing": {
+          "signatureGap": 16,
+          "harnessGap": 15.999051201778144,
+          "difference": 0.0009487982218558955
+        }
       },
       "file": "readme-banner-zh-dark.png",
       "theme": "dark",
       "width": 1280,
       "height": 340,
-      "bytes": 37113,
-      "sha256": "0afcf5e5dfce6d3e6dd3cbc2c13aae62315aa974374f832fc3a2c9e5783c003a",
+      "bytes": 37374,
+      "sha256": "d7d9cd3fe8862a2c848705252a5d12e3107c7bb3e8401843fb7a541c825f2f6b",
       "font": true,
       "failedImages": 0,
       "overflow": [],
